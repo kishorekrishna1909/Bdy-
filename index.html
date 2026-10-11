@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Birthday My Gurl 🐼</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#4A3728',     
+                            medium: '#8B5A2B',   
+                            light: '#D2B48C',    
+                            cream: '#FFF8DC',    
+                            red: '#E06666',      
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Fredoka', 'sans-serif'],
+                        handwriting: ['Caveat', 'cursive'],
+                    },
+                    animation: {
+                        'float': 'float 4s ease-in-out infinite',
+                        'pulse-slow': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                        'pop-in': 'popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+                        'shake': 'shake 0.5s ease-in-out',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        popIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.8)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' },
+                        },
+                        shake: {
+                            '0%, 100%': { transform: 'translateX(0)' },
+                            '25%': { transform: 'translateX(-5px)' },
+                            '50%': { transform: 'translateX(5px)' },
+                            '75%': { transform: 'translateX(-5px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        :root {
+            --brand-dark: #4A3728;
+            --brand-medium: #8B5A2B;
+            --brand-light: #D2B48C;
+            --brand-cream: #FFF8DC;
+        }
+        
+        body {
+            background-color: var(--brand-cream);
+            color: var(--brand-dark);
+            overflow-x: hidden;
+            touch-action: pan-y; 
+        }
+        
+        .heart-bg {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="%238B5A2B" opacity="0.05"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+        }
+
+        .screen {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+        .screen.active {
+            display: flex;
+            opacity: 1;
+        }
+        .screen.active-block {
+            display: block;
+            opacity: 1;
+        }
+        
+        #gameCanvas {
+            touch-action: none;
+            display: block;
+            width: 100%;
+            height: 100%;
+            cursor: crosshair;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--brand-dark);
+            border: 2px solid var(--brand-medium);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 20;
+        }
+        .nav-btn:hover, .nav-btn:active {
+            background: var(--brand-medium);
+            color: var(--brand-cream);
+            transform: scale(1.1);
+        }
+        
+        .photo-frame {
+            background: white;
+            padding: 12px 12px 40px 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border: 1px solid #e5e7eb;
+        }
+
+        #custom-popup {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        #custom-popup.active {
+            display: flex;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="heart-bg antialiased min-h-screen relative w-full h-full flex flex-col items-center">
+
+    <div id="auth-screen" class="screen active fixed inset-0 z-50 flex-col items-center justify-center bg-brand-cream bg-opacity-95 backdrop-blur-sm px-4">
+        <div class="text-center animate-pop-in p-6 md:p-8 rounded-3xl shadow-2xl bg-white/90 border-4 border-brand-light max-w-lg w-full">
+            <div class="text-6xl mb-2 animate-float">🔒🐼</div>
+            <h2 class="text-2xl font-bold text-brand-dark mb-2">Secret Entrance</h2>
+            <p class="text-brand-medium text-sm mb-6">Enter our special dates to unlock...</p>
+            
+            <div class="grid grid-cols-2 gap-3 mb-4">
+                <input type="text" id="p1" maxlength="2" placeholder="Your Bday Date" class="auth-input w-full px-2 py-3 rounded-xl border-2 border-brand-light focus:border-brand-medium focus:outline-none text-center text-sm md:text-base tracking-widest text-brand-dark shadow-inner">
+                <input type="text" id="p2" maxlength="2" placeholder="Your Bday Month" class="auth-input w-full px-2 py-3 rounded-xl border-2 border-brand-light focus:border-brand-medium focus:outline-none text-center text-sm md:text-base tracking-widest text-brand-dark shadow-inner">
+                <input type="text" id="p3" maxlength="2" placeholder="My Bday Date" class="auth-input w-full px-2 py-3 rounded-xl border-2 border-brand-light focus:border-brand-medium focus:outline-none text-center text-sm md:text-base tracking-widest text-brand-dark shadow-inner">
+                <input type="text" id="p4" maxlength="2" placeholder="My Bday Month" class="auth-input w-full px-2 py-3 rounded-xl border-2 border-brand-light focus:border-brand-medium focus:outline-none text-center text-sm md:text-base tracking-widest text-brand-dark shadow-inner">
+            </div>
+            
+            <p id="error-msg" class="text-red-500 text-sm mb-4 h-5 opacity-0 transition-opacity font-medium">Incorrect dates. Try again! 🥺</p>
+            
+            <button onclick="checkPassword()" class="w-full bg-brand-dark text-brand-cream font-bold py-3 px-6 rounded-xl hover:bg-brand-medium transition-colors shadow-lg transform active:scale-95">
+                Unlock 🗝️
+            </button>
+        </div>
+    </div>
+
+    <div id="countdown-screen" class="screen fixed inset-0 z-40 flex-col items-center justify-center bg-brand-cream px-4">
+        <div class="text-center p-8 rounded-3xl shadow-xl bg-white/80 border-4 border-brand-light max-w-lg w-full">
+            <div class="text-6xl mb-4 animate-float">⏳🐻</div>
+            <h1 class="text-3xl md:text-4xl font-bold text-brand-dark mb-2">Waiting for You...</h1>
+            <p class="text-brand-medium text-lg mb-8 font-medium">Until October 20, 2026</p>
+            
+            <div class="grid grid-cols-4 gap-2 md:gap-4 text-center">
+                <div class="bg-brand-dark text-brand-cream rounded-xl p-2 md:p-4 shadow-lg">
+                    <div id="days" class="text-2xl md:text-5xl font-bold">00</div>
+                    <div class="text-[10px] md:text-sm uppercase mt-1 tracking-wider">Days</div>
+                </div>
+                <div class="bg-brand-dark text-brand-cream rounded-xl p-2 md:p-4 shadow-lg">
+                    <div id="hours" class="text-2xl md:text-5xl font-bold">00</div>
+                    <div class="text-[10px] md:text-sm uppercase mt-1 tracking-wider">Hours</div>
+                </div>
+                <div class="bg-brand-dark text-brand-cream rounded-xl p-2 md:p-4 shadow-lg">
+                    <div id="minutes" class="text-2xl md:text-5xl font-bold">00</div>
+                    <div class="text-[10px] md:text-sm uppercase mt-1 tracking-wider">Mins</div>
+                </div>
+                <div class="bg-brand-dark text-brand-cream rounded-xl p-2 md:p-4 shadow-lg">
+                    <div id="seconds" class="text-2xl md:text-5xl font-bold">00</div>
+                    <div class="text-[10px] md:text-sm uppercase mt-1 tracking-wider">Secs</div>
+                </div>
+            </div>
+        </div>
+        <button onclick="bypassTimer()" class="absolute bottom-6 opacity-30 hover:opacity-100 text-sm text-brand-dark transition-opacity underline decoration-dotted z-50">
+            [Secret: Click here to skip timer]
+        </button>
+    </div>
+
+    <div id="game-screen" class="screen fixed inset-0 z-30 bg-brand-cream flex-col items-center justify-center">
+        <div class="absolute top-10 text-center z-10 pointer-events-none w-full px-4">
+            <h2 class="text-3xl font-bold text-brand-dark animate-pulse bg-white/70 inline-block px-4 py-2 rounded-full">Shoot the heart to unlock! 🏹💖</h2>
+            <p class="text-brand-medium mt-2 font-handwriting text-2xl bg-white/70 inline-block px-4 py-1 rounded-full">Pull back anywhere and release</p>
+        </div>
+        <div class="relative w-full h-full max-w-5xl mx-auto overflow-hidden shadow-inner border-x-4 border-brand-light bg-white/40">
+            <canvas id="gameCanvas"></canvas>
+        </div>
+    </div>
+
+    <div id="custom-popup" class="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex-col items-center justify-center px-4">
+        <div class="bg-white p-8 rounded-3xl shadow-2xl border-4 border-brand-medium text-center animate-pop-in max-w-sm w-full">
+            <div class="text-5xl mb-4">🎉🐼</div>
+            <h2 class="text-4xl font-handwriting font-bold text-brand-dark mb-6">Happy Birthday My Gurl!</h2>
+            <button onclick="closePopupAndProceed()" class="bg-brand-dark text-white font-bold py-3 px-8 rounded-full hover:bg-brand-medium transition-colors w-full shadow-lg">
+                Continue 💖
+            </button>
+        </div>
+    </div>
+
+    <div id="main-menu" class="screen min-h-screen py-12 px-4 sm:px-6 flex-col items-center justify-center relative w-full max-w-5xl mx-auto">
+        <div class="flex flex-col md:flex-row gap-6 w-full justify-center animate-fade-in">
+            <button onclick="showSection('journey-section')" class="flex-1 bg-white border-4 border-brand-light p-8 rounded-[2rem] shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all group flex flex-col items-center justify-center min-h-[250px]">
+                <div class="text-6xl mb-4 group-hover:animate-float">✨</div>
+                <h2 class="text-3xl font-bold text-brand-dark font-handwriting text-center">Your Journey</h2>
+            </button>
+            
+            <button onclick="showSection('our-journey-section')" class="flex-1 bg-white border-4 border-brand-medium p-8 rounded-[2rem] shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all group flex flex-col items-center justify-center min-h-[250px]">
+                <div class="text-6xl mb-4 group-hover:animate-float">🤎</div>
+                <h2 class="text-3xl font-bold text-brand-dark font-handwriting text-center">Our Journey</h2>
+            </button>
+        </div>
+    </div>
+
+    <div id="journey-section" class="screen min-h-screen py-10 px-4 w-full max-w-4xl mx-auto flex-col items-center relative pb-32">
+        <button onclick="backToMenu()" class="absolute top-4 left-4 bg-white/80 backdrop-blur border-2 border-brand-light px-4 py-2 rounded-full text-brand-dark font-bold shadow hover:bg-brand-light hover:text-white transition-colors z-20">
+            &larr; Back
+        </button>
+        
+        <div class="bg-[#fcf8ed] p-8 md:p-10 rounded-3xl shadow-xl relative border-2 border-brand-light w-full mt-12 mb-12 animate-fade-in">
+            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-white/80 rotate-2 shadow-sm border border-gray-100"></div>
+            <h2 class="font-handwriting text-4xl text-brand-dark mb-4 text-center">My Dearest Girl, 🐼</h2>
+            <p class="font-sans text-lg text-brand-dark leading-relaxed text-center font-medium">
+                I've been waiting for this exact moment to celebrate you. From the cute little expressions to the beautiful woman you are, every version of you holds my heart. 
+                This album is a little journey through all the faces I love so much. Wishing you the happiest birthday, my beautiful panda! 🤎✨
+            </p>
+        </div>
+
+        <div class="relative w-full flex items-center justify-center animate-pop-in" style="animation-delay: 0.3s;">
+            <button onclick="prevJourneyPhoto()" class="nav-btn absolute -left-2 md:-left-8 z-20">&larr;</button>
+            
+            <div class="photo-frame rounded-xl relative w-full max-w-lg mx-auto transform transition-transform duration-500" id="photo-frame-container">
+                <div class="w-full aspect-[3/4] md:aspect-square bg-gray-100 rounded overflow-hidden relative flex items-center justify-center">
+                    <div id="img-loader" class="absolute inset-0 flex items-center justify-center text-brand-light text-4xl animate-pulse">🐼</div>
+                    <img id="journey-img" src="" alt="Memory" class="w-full h-full object-contain relative z-10 opacity-0 transition-opacity duration-300" onload="this.style.opacity=1; document.getElementById('img-loader').style.display='none'">
+                </div>
+                <p id="journey-caption" class="font-handwriting text-3xl md:text-4xl mt-6 text-brand-dark text-center min-h-[3rem]"></p>
+                <div class="absolute top-4 right-4 bg-brand-dark text-brand-cream px-3 py-1 rounded-full text-xs font-bold shadow-md opacity-80" id="journey-counter">1 / 20</div>
+            </div>
+            
+            <button onclick="nextJourneyPhoto()" class="nav-btn absolute -right-2 md:-right-8 z-20">&rarr;</button>
+        </div>
+    </div>
+
+    <div id="our-journey-section" class="screen min-h-screen py-12 px-4 flex-col items-center justify-center w-full">
+        <button onclick="backToMenu()" class="absolute top-4 left-4 bg-white/80 backdrop-blur border-2 border-brand-light px-4 py-2 rounded-full text-brand-dark font-bold shadow hover:bg-brand-light hover:text-white transition-colors">
+            &larr; Back
+        </button>
+        <div class="text-center p-12 bg-white rounded-3xl border-4 border-brand-medium shadow-2xl animate-pop-in">
+            <div class="text-7xl mb-4">👩‍❤️‍👨</div>
+            <h2 class="font-handwriting text-5xl text-brand-dark mb-4">Our Journey</h2>
+            <p class="text-xl text-brand-medium font-medium">To be continued with more beautiful memories... 🤎</p>
+        </div>
+    </div>
+
+    <script>
+        const screens = {
+            auth: document.getElementById('auth-screen'),
+            countdown: document.getElementById('countdown-screen'),
+            game: document.getElementById('game-screen'),
+            mainMenu: document.getElementById('main-menu'),
+            journey: document.getElementById('journey-section'),
+            ourJourney: document.getElementById('our-journey-section')
+        };
+        const customPopup = document.getElementById('custom-popup');
+        
+        let countdownInterval;
+        const targetDate = new Date("October 20, 2026 00:00:00").getTime();
+
+        function switchScreen(hideScreen, showScreen, displayType = 'flex') {
+            hideScreen.style.opacity = '0';
+            setTimeout(() => {
+                hideScreen.classList.remove('active', 'active-block');
+                if(displayType === 'flex') showScreen.classList.add('active');
+                else showScreen.classList.add('active-block');
+                
+                void showScreen.offsetWidth; 
+                showScreen.style.opacity = '1';
+                window.scrollTo(0, 0);
+            }, 600);
+        }
+
+        // --- STREAMING_CHUNK:Logic for Authentication Form... ---
+        const inputs = document.querySelectorAll('.auth-input');
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', function() {
+                if (this.value.length === 2 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Backspace' && this.value.length === 0 && index > 0) {
+                    inputs[index - 1].focus();
+                }
+                if (e.key === 'Enter') checkPassword();
+            });
+        });
+
+        function checkPassword() {
+            const val = Array.from(inputs).map(i => i.value).join('');
+            const errorMsg = document.getElementById('error-msg');
+            const authBox = document.querySelector('#auth-screen > div');
+            
+            if (val === '20101909') {
+                errorMsg.style.opacity = '0';
+                switchScreen(screens.auth, screens.countdown);
+                startCountdown();
+            } else {
+                errorMsg.style.opacity = '1';
+                authBox.classList.remove('animate-pop-in');
+                authBox.classList.add('animate-shake');
+                setTimeout(() => authBox.classList.remove('animate-shake'), 500);
+            }
+        }
+
+        // --- STREAMING_CHUNK:Logic for Countdown Timer... ---
+        function startCountdown() {
+            updateCountdown();
+            countdownInterval = setInterval(updateCountdown, 1000);
+        }
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance <= 0) {
+                clearInterval(countdownInterval);
+                startGame();
+                return;
+            }
+
+            document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+            document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+        }
+
+        function bypassTimer() {
+            clearInterval(countdownInterval);
+            startGame();
+        }
+
+        // --- STREAMING_CHUNK:Logic for Canvas Minigame Engine... ---
+        function startGame() {
+            switchScreen(screens.countdown, screens.game);
+            setTimeout(initCanvasGame, 800);
+        }
+
+        function initCanvasGame() {
+            const canvas = document.getElementById('gameCanvas');
+            const ctx = canvas.getContext('2d');
+            let w, h;
+            
+            let bow = { x: 0, y: 0 };
+            let target = { x: 0, y: 0, radius: 45, pulsePhase: 0 };
+            let arrow = { x: 0, y: 0, vx: 0, vy: 0, isFired: false, length: 70, angle: 0 };
+            let drag = { isDragging: false, startX: 0, startY: 0, currX: 0, currY: 0 };
+            let gameState = 'playing';
+
+            function resize() {
+                w = canvas.width = canvas.parentElement.clientWidth;
+                h = canvas.height = canvas.parentElement.clientHeight;
+                
+                bow.x = Math.max(80, w * 0.15);
+                bow.y = h / 2;
+                target.x = w - Math.max(80, w * 0.15);
+                target.y = h / 2;
+                
+                if (!arrow.isFired) {
+                    arrow.x = bow.x;
+                    arrow.y = bow.y;
+                }
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            function getPointerPos(e) {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                return { x: clientX - rect.left, y: clientY - rect.top };
+            }
+
+            function pointerDown(e) {
+                if (gameState !== 'playing' || arrow.isFired) return;
+                const pos = getPointerPos(e);
+                drag.isDragging = true;
+                drag.startX = pos.x;
+                drag.startY = pos.y;
+                drag.currX = pos.x;
+                drag.currY = pos.y;
+            }
+
+            function pointerMove(e) {
+                if (!drag.isDragging) return;
+                const pos = getPointerPos(e);
+                const dx = pos.x - drag.startX;
+                const dy = pos.y - drag.startY;
+                const dist = Math.hypot(dx, dy);
+                const maxDrag = 120;
+                
+                if (dist > maxDrag) {
+                    drag.currX = drag.startX + (dx / dist) * maxDrag;
+                    drag.currY = drag.startY + (dy / dist) * maxDrag;
+                } else {
+                    drag.currX = pos.x;
+                    drag.currY = pos.y;
+                }
+            }
+
+            function pointerUp(e) {
+                if (!drag.isDragging) return;
+                drag.isDragging = false;
+                const dx = drag.startX - drag.currX;
+                const dy = drag.startY - drag.currY;
+                
+                if (Math.hypot(dx, dy) > 15) {
+                    arrow.isFired = true;
+                    arrow.vx = dx * 0.35;
+                    arrow.vy = dy * 0.35;
+                    arrow.angle = Math.atan2(dy, dx);
+                }
+            }
+
+            canvas.addEventListener('mousedown', pointerDown);
+            window.addEventListener('mousemove', pointerMove);
+            window.addEventListener('mouseup', pointerUp);
+            canvas.addEventListener('touchstart', pointerDown, {passive: false});
+            window.addEventListener('touchmove', (e) => { 
+                if(drag.isDragging) { e.preventDefault(); pointerMove(e); }
+            }, {passive: false});
+            window.addEventListener('touchend', pointerUp);
+
+            function drawHeart(x, y, scale) {
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.scale(scale, scale);
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(0, -3, -5, -15, -25, -15);
+                ctx.bezierCurveTo(-55, -15, -55, 22.5, -55, 22.5);
+                ctx.bezierCurveTo(-55, 40, -35, 62, 0, 80);
+                ctx.bezierCurveTo(35, 62, 55, 40, 55, 22.5);
+                ctx.bezierCurveTo(55, 22.5, 55, -15, 25, -15);
+                ctx.bezierCurveTo(10, -15, 0, -3, 0, 0);
+                ctx.fillStyle = '#E06666';
+                ctx.fill();
+                ctx.lineWidth = 3;
+                ctx.strokeStyle = '#c44545';
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.arc(-15, -5, 5, 0, Math.PI*2);
+                ctx.fillStyle = 'rgba(255,255,255,0.4)';
+                ctx.fill();
+                ctx.restore();
+            }
+
+            // --- STREAMING_CHUNK:Running Game Loop & Mechanics... ---
+            function loop() {
+                ctx.clearRect(0, 0, w, h);
+
+                target.pulsePhase += 0.08;
+                const heartScale = 0.7 + Math.sin(target.pulsePhase) * 0.08;
+                drawHeart(target.x, target.y - 30, heartScale);
+
+                let pullDx = 0, pullDy = 0;
+                if (drag.isDragging) {
+                    pullDx = drag.currX - drag.startX;
+                    pullDy = drag.currY - drag.startY;
+                    arrow.angle = Math.atan2(-pullDy, -pullDx);
+                } else if (!arrow.isFired) {
+                    arrow.angle = 0;
+                }
+
+                ctx.beginPath();
+                ctx.moveTo(bow.x, bow.y - 70);
+                if (drag.isDragging) {
+                    ctx.lineTo(bow.x + pullDx, bow.y + pullDy);
+                } else {
+                    ctx.lineTo(bow.x, bow.y);
+                }
+                ctx.lineTo(bow.x, bow.y + 70);
+                ctx.strokeStyle = '#8B5A2B';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(bow.x - 25, bow.y, 75, -Math.PI/2.5, Math.PI/2.5);
+                ctx.strokeStyle = '#4A3728';
+                ctx.lineWidth = 8;
+                ctx.lineCap = 'round';
+                ctx.stroke();
+
+                if (arrow.isFired) {
+                    arrow.x += arrow.vx;
+                    arrow.y += arrow.vy;
+                    arrow.angle = Math.atan2(arrow.vy, arrow.vx);
+                } else {
+                    arrow.x = bow.x + pullDx;
+                    arrow.y = bow.y + pullDy;
+                }
+
+                ctx.save();
+                ctx.translate(arrow.x, arrow.y);
+                ctx.rotate(arrow.angle);
+                
+                ctx.beginPath(); ctx.moveTo(-arrow.length/2, 0); ctx.lineTo(arrow.length/2, 0);
+                ctx.strokeStyle = '#664228'; ctx.lineWidth = 4; ctx.stroke();
+                
+                ctx.fillStyle = '#FFF8DC';
+                ctx.beginPath(); ctx.moveTo(-arrow.length/2, 0); ctx.lineTo(-arrow.length/2 - 12, -6); ctx.lineTo(-arrow.length/2 - 6, 0); ctx.fill();
+                ctx.beginPath(); ctx.moveTo(-arrow.length/2, 0); ctx.lineTo(-arrow.length/2 - 12, 6); ctx.lineTo(-arrow.length/2 - 6, 0); ctx.fill();
+                
+                ctx.fillStyle = '#4A3728';
+                ctx.beginPath(); ctx.moveTo(arrow.length/2 + 12, 0); ctx.lineTo(arrow.length/2, -6); ctx.lineTo(arrow.length/2, 6); ctx.fill();
+                ctx.restore();
+
+                if (gameState === 'playing' && arrow.isFired) {
+                    if (arrow.x > w || arrow.y > h || arrow.x < 0 || arrow.y < 0) {
+                        arrow.isFired = false;
+                        arrow.x = bow.x;
+                        arrow.y = bow.y;
+                    }
+                    const distToTarget = Math.hypot(arrow.x + (arrow.length/2)*Math.cos(arrow.angle) - target.x, arrow.y + (arrow.length/2)*Math.sin(arrow.angle) - target.y);
+                    if (distToTarget < target.radius) {
+                        gameState = 'hit';
+                        triggerWin();
+                    }
+                }
+
+                if (gameState === 'playing' || gameState === 'hit') {
+                    requestAnimationFrame(loop);
+                }
+            }
+            loop();
+        }
+
+        // --- STREAMING_CHUNK:Logic for Main Content and Gallery Navigation... ---
+        function triggerWin() {
+            setTimeout(() => {
+                customPopup.classList.add('active');
+                launchConfetti();
+            }, 300);
+        }
+
+        function closePopupAndProceed() {
+            customPopup.classList.remove('active');
+            setTimeout(() => {
+                switchScreen(screens.game, screens.mainMenu);
+            }, 400);
+        }
+
+        function showSection(sectionId) {
+            if(sectionId === 'journey-section') {
+                switchScreen(screens.mainMenu, screens.journey);
+                currentPhotoIndex = 0;
+                updateJourneyView();
+            } else {
+                switchScreen(screens.mainMenu, screens.ourJourney);
+            }
+        }
+
+        function backToMenu() {
+            if(screens.journey.classList.contains('active')) {
+                switchScreen(screens.journey, screens.mainMenu);
+            } else {
+                switchScreen(screens.ourJourney, screens.mainMenu);
+            }
+        }
+
+        const journeyData = [
+            { src: "1000154764.jpg", caption: "Kutty Kunjan" },
+            { src: "1000154757.jpg", caption: "Elumbi" },
+            { src: "1000154770.jpg", caption: "azhagi" },
+            { src: "1000154771.jpg", caption: "siripu azhagi" },
+            { src: "1000154774.jpg", caption: "Cutiee" },
+            { src: "1000154773.jpg", caption: "chellameyy" },
+            { src: "1000154772.jpg", caption: "en thanga katti" },
+            { src: "1000154766.jpg", caption: "bonda vaai" },
+            { src: "1000154760.jpg", caption: "rowdy baby" },
+            { src: "1000154761.jpg", caption: "en uyire" },
+            { src: "1000154769.jpg", caption: "pattu kutty" },
+            { src: "1000154767.jpg", caption: "loosu penne" },
+            { src: "1000154758.jpg", caption: "ammu" },
+            { src: "1000154756.jpg", caption: "kutty pisase" },
+            { src: "1000154754.jpg", caption: "en dippam dappam" },
+            { src: "1000154753.jpg", caption: "bujji ma" },
+            { src: "1000154755.jpg", caption: "azhaga sirikira" },
+            { src: "1000154752.jpg", caption: "kadhali" },
+            { src: "1000154751.jpg", caption: "vennila" },
+            { src: "1000154750.jpg", caption: "devathai" }
+        ];
+
+        let currentPhotoIndex = 0;
+        const jImg = document.getElementById('journey-img');
+        const jCaption = document.getElementById('journey-caption');
+        const jCounter = document.getElementById('journey-counter');
+        const jLoader = document.getElementById('img-loader');
+        const photoFrame = document.getElementById('photo-frame-container');
+
+        function updateJourneyView() {
+            const data = journeyData[currentPhotoIndex];
+            
+            jImg.style.opacity = '0';
+            jCaption.style.opacity = '0';
+            photoFrame.style.transform = 'scale(0.98)';
+            
+            setTimeout(() => {
+                jLoader.style.display = 'flex';
+                jImg.src = data.src;
+                
+                jImg.onerror = function() {
+                    this.src = `https://placehold.co/600x800/FFF8DC/8B5A2B?text=${encodeURIComponent(data.caption)}`;
+                    this.onerror = null; 
+                };
+
+                jCaption.innerText = data.caption;
+                jCounter.innerText = `${currentPhotoIndex + 1} / ${journeyData.length}`;
+                
+                jCaption.style.opacity = '1';
+                photoFrame.style.transform = 'scale(1)';
+                jCaption.style.transition = 'opacity 0.4s ease';
+            }, 300);
+        }
+
+        function nextJourneyPhoto() {
+            currentPhotoIndex = (currentPhotoIndex + 1) % journeyData.length;
+            updateJourneyView();
+        }
+
+        function prevJourneyPhoto() {
+            currentPhotoIndex = (currentPhotoIndex - 1 + journeyData.length) % journeyData.length;
+            updateJourneyView();
+        }
+
+        function launchConfetti() {
+            const colors = ['#8B5A2B', '#E06666', '#FFF8DC', '#4A3728', '#D2B48C'];
+            for(let i=0; i<80; i++) {
+                let conf = document.createElement('div');
+                conf.style.position = 'fixed';
+                conf.style.width = (Math.random() * 10 + 5) + 'px';
+                conf.style.height = (Math.random() * 10 + 5) + 'px';
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.top = '-20px';
+                conf.style.zIndex = '99999';
+                conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                conf.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                const duration = 2 + Math.random() * 3;
+                conf.style.transition = `top ${duration}s cubic-bezier(0.37, 0, 0.63, 1), transform ${duration}s linear`;
+                
+                document.body.appendChild(conf);
+                
+                setTimeout(() => {
+                    conf.style.top = '120vh';
+                    conf.style.transform = `rotate(${Math.random() * 1080}deg)`;
+                }, 50);
+                setTimeout(() => conf.remove(), duration * 1000 + 100);
+            }
+        }
+    </script>
+</body>
+</html>
