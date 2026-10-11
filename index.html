@@ -563,7 +563,13 @@
             }, 400);
         }
 
-        function showSection(sectionId) {
+     function showSection(sectionId) {
+            // Play music for both journey sections with a fail-safe
+            let bgMusic = document.getElementById('bg-music');
+            bgMusic.play().catch(function(error) {
+                console.log("Browser paused the music automatically:", error);
+            });
+
             if(sectionId === 'journey-section') {
                 switchScreen(screens.mainMenu, screens.journey);
                 currentPhotoIndex = 0;
