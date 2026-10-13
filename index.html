@@ -139,6 +139,11 @@
 </head>
 <body class="heart-bg antialiased min-h-screen relative w-full h-full flex flex-col items-center">
 
+    <!-- Floating Music Toggle Button -->
+    <button id="music-toggle" onclick="toggleMusic()" class="fixed bottom-6 right-6 z-50 bg-white/90 border-2 border-brand-medium text-brand-dark p-3 rounded-full shadow-lg hidden hover:bg-brand-medium hover:text-white transition-colors">
+        🔇 Play Music
+    </button>
+
     <div id="auth-screen" class="screen active fixed inset-0 z-50 flex-col items-center justify-center bg-brand-cream bg-opacity-95 backdrop-blur-sm px-4">
         <div class="text-center animate-pop-in p-6 md:p-8 rounded-3xl shadow-2xl bg-white/90 border-4 border-brand-light max-w-lg w-full">
             <div class="text-6xl mb-2 animate-float">🔒🐼</div>
@@ -224,6 +229,7 @@
         </div>
     </div>
 
+    <!-- YOUR JOURNEY GALLERY -->
     <div id="journey-section" class="screen min-h-screen py-10 px-4 w-full max-w-4xl mx-auto flex-col items-center relative pb-32">
         <button onclick="backToMenu()" class="absolute top-4 left-4 bg-white/80 backdrop-blur border-2 border-brand-light px-4 py-2 rounded-full text-brand-dark font-bold shadow hover:bg-brand-light hover:text-white transition-colors z-20">
             &larr; Back
@@ -247,21 +253,40 @@
                     <img id="journey-img" src="" alt="Memory" class="w-full h-full object-contain relative z-10 opacity-0 transition-opacity duration-300" onload="this.style.opacity=1; document.getElementById('img-loader').style.display='none'">
                 </div>
                 <p id="journey-caption" class="font-handwriting text-3xl md:text-4xl mt-6 text-brand-dark text-center min-h-[3rem]"></p>
-                <div class="absolute top-4 right-4 bg-brand-dark text-brand-cream px-3 py-1 rounded-full text-xs font-bold shadow-md opacity-80" id="journey-counter">1 / 20</div>
+                <div class="absolute top-4 right-4 bg-brand-dark text-brand-cream px-3 py-1 rounded-full text-xs font-bold shadow-md opacity-80" id="journey-counter">1 / 21</div>
             </div>
             
             <button onclick="nextJourneyPhoto()" class="nav-btn absolute -right-2 md:-right-8 z-20">&rarr;</button>
         </div>
     </div>
 
-    <div id="our-journey-section" class="screen min-h-screen py-12 px-4 flex-col items-center justify-center w-full">
-        <button onclick="backToMenu()" class="absolute top-4 left-4 bg-white/80 backdrop-blur border-2 border-brand-light px-4 py-2 rounded-full text-brand-dark font-bold shadow hover:bg-brand-light hover:text-white transition-colors">
+    <!-- OUR JOURNEY GALLERY -->
+    <div id="our-journey-section" class="screen min-h-screen py-10 px-4 w-full max-w-4xl mx-auto flex-col items-center relative pb-32">
+        <button onclick="backToMenu()" class="absolute top-4 left-4 bg-white/80 backdrop-blur border-2 border-brand-light px-4 py-2 rounded-full text-brand-dark font-bold shadow hover:bg-brand-light hover:text-white transition-colors z-20">
             &larr; Back
         </button>
-        <div class="text-center p-12 bg-white rounded-3xl border-4 border-brand-medium shadow-2xl animate-pop-in">
-            <div class="text-7xl mb-4">👩‍❤️‍👨</div>
-            <h2 class="font-handwriting text-5xl text-brand-dark mb-4">Our Journey</h2>
-            <p class="text-xl text-brand-medium font-medium">To be continued with more beautiful memories... 🤎</p>
+        
+        <div class="bg-[#fcf8ed] p-8 md:p-10 rounded-3xl shadow-xl relative border-2 border-brand-medium w-full mt-12 mb-12 animate-fade-in">
+            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-white/80 -rotate-2 shadow-sm border border-gray-100"></div>
+            <h2 class="font-handwriting text-4xl text-brand-dark mb-4 text-center">Our Beautiful Journey 👩‍❤️‍👨</h2>
+            <p class="font-sans text-lg text-brand-dark leading-relaxed text-center font-medium">
+                Every moment spent with you is a memory I treasure. Here is a look back at us, and to many more beautiful memories yet to come... 🤎
+            </p>
+        </div>
+
+        <div class="relative w-full flex items-center justify-center animate-pop-in" style="animation-delay: 0.3s;">
+            <button onclick="prevOurJourneyPhoto()" class="nav-btn absolute -left-2 md:-left-8 z-20">&larr;</button>
+            
+            <div class="photo-frame rounded-xl relative w-full max-w-lg mx-auto transform transition-transform duration-500" id="our-photo-frame-container">
+                <div class="w-full aspect-[3/4] md:aspect-square bg-gray-100 rounded overflow-hidden relative flex items-center justify-center">
+                    <div id="our-img-loader" class="absolute inset-0 flex items-center justify-center text-brand-light text-4xl animate-pulse">🤎</div>
+                    <img id="our-journey-img" src="" alt="Us" class="w-full h-full object-contain relative z-10 opacity-0 transition-opacity duration-300" onload="this.style.opacity=1; document.getElementById('our-img-loader').style.display='none'">
+                </div>
+                <p id="our-journey-caption" class="font-handwriting text-3xl md:text-4xl mt-6 text-brand-dark text-center min-h-[3rem]"></p>
+                <div class="absolute top-4 right-4 bg-brand-dark text-brand-cream px-3 py-1 rounded-full text-xs font-bold shadow-md opacity-80" id="our-journey-counter">1 / X</div>
+            </div>
+            
+            <button onclick="nextOurJourneyPhoto()" class="nav-btn absolute -right-2 md:-right-8 z-20">&rarr;</button>
         </div>
     </div>
 
@@ -292,7 +317,43 @@
             }, 600);
         }
 
-        // --- STREAMING_CHUNK:Logic for Authentication Form... ---
+        /* --- Updated Audio Controls (Two Songs) --- */
+        let activeAudio = null;
+
+        function toggleMusic() {
+            if(!activeAudio) return;
+            const btn = document.getElementById('music-toggle');
+            if(activeAudio.paused) {
+                activeAudio.play().then(() => {
+                    btn.innerHTML = '🔊 Music On';
+                }).catch(e => console.log("Still blocked:", e));
+            } else {
+                activeAudio.pause();
+                btn.innerHTML = '🔇 Music Off';
+            }
+        }
+
+        function stopAllMusic() {
+            document.getElementById('journey-music').pause();
+            document.getElementById('our-journey-music').pause();
+            document.getElementById('music-toggle').innerHTML = '🔇 Play Music';
+            activeAudio = null;
+        }
+
+        function playMusicForSection(audioId) {
+            stopAllMusic(); // Pause any other playing music first
+            activeAudio = document.getElementById(audioId);
+            const btn = document.getElementById('music-toggle');
+            
+            activeAudio.play().then(() => {
+                btn.innerHTML = '🔊 Music On';
+            }).catch(function(error) {
+                console.log("Browser paused the music automatically:", error);
+                btn.innerHTML = '🔇 Play Music';
+            });
+        }
+
+        // --- Authentication Form ---
         const inputs = document.querySelectorAll('.auth-input');
         inputs.forEach((input, index) => {
             input.addEventListener('input', function() {
@@ -325,7 +386,7 @@
             }
         }
 
-        // --- STREAMING_CHUNK:Logic for Countdown Timer... ---
+        // --- Countdown Timer ---
         function startCountdown() {
             updateCountdown();
             countdownInterval = setInterval(updateCountdown, 1000);
@@ -352,7 +413,7 @@
             startGame();
         }
 
-        // --- STREAMING_CHUNK:Logic for Canvas Minigame Engine... ---
+        // --- Canvas Minigame Engine ---
         function startGame() {
             switchScreen(screens.countdown, screens.game);
             setTimeout(initCanvasGame, 800);
@@ -468,10 +529,8 @@
                 ctx.restore();
             }
 
-            // --- STREAMING_CHUNK:Running Game Loop & Mechanics... ---
             function loop() {
                 ctx.clearRect(0, 0, w, h);
-
                 target.pulsePhase += 0.08;
                 const heartScale = 0.7 + Math.sin(target.pulsePhase) * 0.08;
                 drawHeart(target.x, target.y - 30, heartScale);
@@ -548,11 +607,13 @@
             loop();
         }
 
-        // --- STREAMING_CHUNK:Logic for Main Content and Gallery Navigation... ---
+        // --- Main Content & Popups ---
         function triggerWin() {
             setTimeout(() => {
                 customPopup.classList.add('active');
                 launchConfetti();
+                // Show music button after they pass the lock screens
+                document.getElementById('music-toggle').classList.remove('hidden');
             }, 300);
         }
 
@@ -563,23 +624,22 @@
             }, 400);
         }
 
-     function showSection(sectionId) {
-            // Play music for both journey sections with a fail-safe
-            let bgMusic = document.getElementById('bg-music');
-            bgMusic.play().catch(function(error) {
-                console.log("Browser paused the music automatically:", error);
-            });
-
+        function showSection(sectionId) {
             if(sectionId === 'journey-section') {
                 switchScreen(screens.mainMenu, screens.journey);
                 currentPhotoIndex = 0;
                 updateJourneyView();
+                playMusicForSection('journey-music'); // Plays Happy Birthday song
             } else {
                 switchScreen(screens.mainMenu, screens.ourJourney);
+                currentOurPhotoIndex = 0;
+                updateOurJourneyView();
+                playMusicForSection('our-journey-music'); // Plays the New song
             }
         }
 
         function backToMenu() {
+            stopAllMusic(); // Pauses all music when returning to the menu
             if(screens.journey.classList.contains('active')) {
                 switchScreen(screens.journey, screens.mainMenu);
             } else {
@@ -587,6 +647,7 @@
             }
         }
 
+        /* --- Your Journey Gallery Data --- */
         const journeyData = [
             { src: "1.jpg", caption: "Kutty Kunjan" },
             { src: "2.jpg", caption: "Elumbi" },
@@ -608,8 +669,7 @@
             { src: "18.jpg", caption: "kadhali" },
             { src: "19.jpg", caption: "vennila" },
             { src: "20.jpg", caption: "devathai" },
-             { src: "21.jpg", caption: "Alagu pilla" }
-            
+            { src: "21.jpg", caption: "Alagu pilla" }
         ];
 
         let currentPhotoIndex = 0;
@@ -620,9 +680,7 @@
         const photoFrame = document.getElementById('photo-frame-container');
 
         function updateJourneyView() {
-            document.getElementById('bg-music').play();
             const data = journeyData[currentPhotoIndex];
-            
             jImg.style.opacity = '0';
             jCaption.style.opacity = '0';
             photoFrame.style.transform = 'scale(0.98)';
@@ -655,6 +713,74 @@
             updateJourneyView();
         }
 
+        /* --- Our Journey Gallery Data (NEW!) --- */
+        // UPDATE THESE FILENAMES BELOW to match the couple photos you uploaded!
+        const ourJourneyData = [
+            { src: "Us1.jpg"},
+            { src: "Us2.jpg"},
+            { src: "Us3.jpg"},
+            { src: "Us4.jpg"},
+            { src: "Us5.jpg"},
+            { src: "Us6.jpg"},
+            { src: "Us7.jpg"},
+            { src: "Us8.jpg"},
+            { src: "Us9.jpg"},
+            { src: "Us10.jpg"},
+            { src: "Us11.jpg"},
+            { src: "Us12.jpg"},
+            { src: "Us13.jpg"},
+            { src: "Us14.jpg"},
+            { src: "Us15.jpg"},
+            { src: "Us16.jpg"},
+            { src: "Us17.jpg"},
+            { src: "Us18.jpg"},
+            { src: "Us19.jpg"},
+            { src: "Us20.jpg"}
+            // Add as many as you need here, following the same format!
+        ];
+
+        let currentOurPhotoIndex = 0;
+        const ourImg = document.getElementById('our-journey-img');
+        const ourCaption = document.getElementById('our-journey-caption');
+        const ourCounter = document.getElementById('our-journey-counter');
+        const ourLoader = document.getElementById('our-img-loader');
+        const ourPhotoFrame = document.getElementById('our-photo-frame-container');
+
+        function updateOurJourneyView() {
+            const data = ourJourneyData[currentOurPhotoIndex];
+            ourImg.style.opacity = '0';
+            ourCaption.style.opacity = '0';
+            ourPhotoFrame.style.transform = 'scale(0.98)';
+            
+            setTimeout(() => {
+                ourLoader.style.display = 'flex';
+                ourImg.src = data.src;
+                
+                ourImg.onerror = function() {
+                    this.src = `https://placehold.co/600x800/FFF8DC/8B5A2B?text=${encodeURIComponent(data.caption)}`;
+                    this.onerror = null; 
+                };
+
+                ourCaption.innerText = data.caption;
+                ourCounter.innerText = `${currentOurPhotoIndex + 1} / ${ourJourneyData.length}`;
+                
+                ourCaption.style.opacity = '1';
+                ourPhotoFrame.style.transform = 'scale(1)';
+                ourCaption.style.transition = 'opacity 0.4s ease';
+            }, 300);
+        }
+
+        function nextOurJourneyPhoto() {
+            currentOurPhotoIndex = (currentOurPhotoIndex + 1) % ourJourneyData.length;
+            updateOurJourneyView();
+        }
+
+        function prevOurJourneyPhoto() {
+            currentOurPhotoIndex = (currentOurPhotoIndex - 1 + ourJourneyData.length) % ourJourneyData.length;
+            updateOurJourneyView();
+        }
+
+        /* --- Animations --- */
         function launchConfetti() {
             const colors = ['#8B5A2B', '#E06666', '#FFF8DC', '#4A3728', '#D2B48C'];
             for(let i=0; i<80; i++) {
@@ -682,10 +808,15 @@
             }
         }
     </script>
-    <!-- Background Music -->
-<audio id="bg-music" loop>
-    <source src="Happy-Birthday.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-</audio>
+    
+    <!-- Audio Files (Update the second one with your new song name!) -->
+    <audio id="journey-music" loop preload="auto">
+        <source src="Happy-Birthday.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="our-journey-music" loop preload="auto">
+        <source src="Metro-Love-Proposal-BGM.mp3" type="audio/mpeg">
+    </audio>
+
 </body>
 </html>
