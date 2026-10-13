@@ -250,7 +250,8 @@
             <div class="photo-frame rounded-xl relative w-full max-w-lg mx-auto transform transition-transform duration-500" id="photo-frame-container">
                 <div class="w-full aspect-[3/4] md:aspect-square bg-gray-100 rounded overflow-hidden relative flex items-center justify-center">
                     <div id="img-loader" class="absolute inset-0 flex items-center justify-center text-brand-light text-4xl animate-pulse">🐼</div>
-                    <img id="journey-img" src="" alt="Memory" class="w-full h-full object-contain relative z-10 opacity-0 transition-opacity duration-300" onload="this.style.opacity=1; document.getElementById('img-loader').style.display='none'">
+                    <!-- CHANGED object-contain to object-cover BELOW -->
+                    <img id="journey-img" src="" alt="Memory" class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity duration-300" onload="this.style.opacity=1; document.getElementById('img-loader').style.display='none'">
                 </div>
                 <p id="journey-caption" class="font-handwriting text-3xl md:text-4xl mt-6 text-brand-dark text-center min-h-[3rem]"></p>
                 <div class="absolute top-4 right-4 bg-brand-dark text-brand-cream px-3 py-1 rounded-full text-xs font-bold shadow-md opacity-80" id="journey-counter">1 / 21</div>
@@ -280,7 +281,8 @@
             <div class="photo-frame rounded-xl relative w-full max-w-lg mx-auto transform transition-transform duration-500" id="our-photo-frame-container">
                 <div class="w-full aspect-[3/4] md:aspect-square bg-gray-100 rounded overflow-hidden relative flex items-center justify-center">
                     <div id="our-img-loader" class="absolute inset-0 flex items-center justify-center text-brand-light text-4xl animate-pulse">🤎</div>
-                    <img id="our-journey-img" src="" alt="Us" class="w-full h-full object-contain relative z-10 opacity-0 transition-opacity duration-300" onload="this.style.opacity=1; document.getElementById('our-img-loader').style.display='none'">
+                    <!-- CHANGED object-contain to object-cover BELOW -->
+                    <img id="our-journey-img" src="" alt="Us" class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity duration-300" onload="this.style.opacity=1; document.getElementById('our-img-loader').style.display='none'">
                 </div>
                 <p id="our-journey-caption" class="font-handwriting text-3xl md:text-4xl mt-6 text-brand-dark text-center min-h-[3rem]"></p>
                 <div class="absolute top-4 right-4 bg-brand-dark text-brand-cream px-3 py-1 rounded-full text-xs font-bold shadow-md opacity-80" id="our-journey-counter">1 / X</div>
@@ -317,8 +319,19 @@
             }, 600);
         }
 
-        /* --- Updated Audio Controls (Two Songs) --- */
+        /* --- Updated Audio Controls (Sequential Playback) --- */
         let activeAudio = null;
+
+        // Auto-play the second song when the first one finishes
+        document.addEventListener('DOMContentLoaded', () => {
+            const firstSong = document.getElementById('our-journey-music');
+            const secondSong = document.getElementById('our-journey-music-2');
+            
+            firstSong.addEventListener('ended', function() {
+                activeAudio = secondSong;
+                secondSong.play().catch(e => console.log(e));
+            });
+        });
 
         function toggleMusic() {
             if(!activeAudio) return;
@@ -336,6 +349,13 @@
         function stopAllMusic() {
             document.getElementById('journey-music').pause();
             document.getElementById('our-journey-music').pause();
+            document.getElementById('our-journey-music-2').pause();
+            
+            // Reset songs to the beginning
+            document.getElementById('journey-music').currentTime = 0;
+            document.getElementById('our-journey-music').currentTime = 0;
+            document.getElementById('our-journey-music-2').currentTime = 0;
+            
             document.getElementById('music-toggle').innerHTML = '🔇 Play Music';
             activeAudio = null;
         }
@@ -634,7 +654,7 @@
                 switchScreen(screens.mainMenu, screens.ourJourney);
                 currentOurPhotoIndex = 0;
                 updateOurJourneyView();
-                playMusicForSection('our-journey-music'); // Plays the New song
+                playMusicForSection('our-journey-music'); // Plays the first Metro song
             }
         }
 
@@ -713,9 +733,9 @@
             updateJourneyView();
         }
 
-        /* --- Our Journey Gallery Data (NEW!) --- */
-        // UPDATE THESE FILENAMES BELOW to match the couple photos you uploaded!
-        const ourJourneyData = [
+        /* --- Our Journey Gallery Data --- */
+        // ADD YOUR REAL IMAGE FILENAMES HERE! 
+         const ourJourneyData = [
             { src: "Us1.jpg"},
             { src: "Us2.jpg"},
             { src: "Us3.jpg"},
@@ -739,6 +759,7 @@
             // Add as many as you need here, following the same format!
         ];
 
+
         let currentOurPhotoIndex = 0;
         const ourImg = document.getElementById('our-journey-img');
         const ourCaption = document.getElementById('our-journey-caption');
@@ -748,6 +769,10 @@
 
         function updateOurJourneyView() {
             const data = ourJourneyData[currentOurPhotoIndex];
+            
+            // Failsafe if data is undefined (prevents the 'undefined' text error)
+            if(!data) return;
+
             ourImg.style.opacity = '0';
             ourCaption.style.opacity = '0';
             ourPhotoFrame.style.transform = 'scale(0.98)';
@@ -809,13 +834,19 @@
         }
     </script>
     
-    <!-- Audio Files (Update the second one with your new song name!) -->
+    <!-- Audio Files -->
     <audio id="journey-music" loop preload="auto">
         <source src="Happy-Birthday.mp3" type="audio/mpeg">
     </audio>
 
-    <audio id="our-journey-music" loop preload="auto">
+    <!-- First Song (Does NOT loop, triggers the second song when it ends) -->
+    <audio id="our-journey-music" preload="auto">
         <source src="Metro-Love-Proposal-BGM.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Second Song (Loops endlessly after the first one finishes) -->
+    <audio id="our-journey-music-2" loop preload="auto">
+        <source src="Dude-Metro-Proposal-BGM.mp3" type="audio/mpeg">
     </audio>
 
 </body>
