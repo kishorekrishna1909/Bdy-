@@ -119,6 +119,7 @@
             transform: scale(1.1);
         }
         
+        /* The Polaroid Frame Style */
         .photo-frame {
             background: white;
             padding: 12px 12px 40px 12px;
@@ -242,6 +243,7 @@
         <div class="relative w-full flex items-center justify-center animate-pop-in" style="animation-delay: 0.3s;">
             <button onclick="prevJourneyPhoto()" class="nav-btn absolute -left-2 md:-left-8 z-20">&larr;</button>
             
+            <!-- Polaroid frame for "Your Journey" -->
             <div class="photo-frame rounded-xl relative w-full max-w-lg mx-auto transform transition-transform duration-500" id="photo-frame-container">
                 <div class="w-full aspect-[3/4] md:aspect-square bg-gray-100 rounded overflow-hidden relative flex items-center justify-center">
                     <div id="img-loader" class="absolute inset-0 flex items-center justify-center text-brand-light text-4xl animate-pulse">🐼</div>
@@ -255,32 +257,38 @@
         </div>
     </div>
 
-    <!-- OUR JOURNEY GALLERY -->
-    <div id="our-journey-section" class="screen min-h-screen py-10 px-4 w-full max-w-4xl mx-auto flex-col items-center relative pb-32">
-        <button onclick="backToMenu()" class="absolute top-4 left-4 bg-white/80 backdrop-blur border-2 border-brand-light px-4 py-2 rounded-full text-brand-dark font-bold shadow hover:bg-brand-light hover:text-white transition-colors z-20">
-            &larr; Back
-        </button>
+    <!-- OUR JOURNEY GALLERY (With Usbg.jpg Background & Restored Polaroid Frame) -->
+    <div id="our-journey-section" class="screen min-h-screen w-full flex-col items-center relative bg-cover bg-center bg-fixed" style="background-image: url('Usbg.jpg');">
+        <!-- Dark overlay to ensure text/buttons are readable on top of your Usbg.jpg image -->
+        <div class="absolute inset-0 bg-black/30 z-0"></div>
         
-        <div class="bg-[#fcf8ed] p-8 md:p-10 rounded-3xl shadow-xl relative border-2 border-brand-medium w-full mt-12 mb-12 animate-fade-in">
-            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-white/80 -rotate-2 shadow-sm border border-gray-100"></div>
-            <h2 class="font-handwriting text-4xl text-brand-dark mb-4 text-center">Our Beautiful Journey 👩‍❤️‍👨</h2>
-            <p class="font-sans text-lg text-brand-dark leading-relaxed text-center font-medium">
-                Every moment spent with you is a memory I treasure. Here is a look back at us, and to many more beautiful memories yet to come... 🤎
-            </p>
-        </div>
-
-        <div class="relative w-full flex items-center justify-center animate-pop-in" style="animation-delay: 0.3s;">
-            <button onclick="prevOurJourneyPhoto()" class="nav-btn absolute -left-2 md:-left-8 z-20">&larr;</button>
+        <div class="relative z-10 w-full max-w-4xl mx-auto py-10 px-4 flex flex-col items-center pb-32">
+            <button onclick="backToMenu()" class="self-start mb-8 bg-white/80 backdrop-blur border-2 border-brand-light px-4 py-2 rounded-full text-brand-dark font-bold shadow hover:bg-brand-light hover:text-white transition-colors">
+                &larr; Back
+            </button>
             
-            <div class="rounded-2xl relative w-full max-w-lg mx-auto transform transition-transform duration-500 shadow-2xl bg-gray-100 overflow-hidden border-2 border-brand-light" id="our-photo-frame-container">
-                <div class="w-full aspect-[3/4] md:aspect-square relative flex items-center justify-center">
-                    <div id="our-img-loader" class="absolute inset-0 flex items-center justify-center text-brand-light text-4xl animate-pulse">🤎</div>
-                    <img id="our-journey-img" src="" alt="Us" class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity duration-300" onload="this.style.opacity=1; document.getElementById('our-img-loader').style.display='none'">
-                </div>
-                <div class="absolute top-4 right-4 bg-brand-dark text-brand-cream px-3 py-1 rounded-full text-xs font-bold shadow-md opacity-80 z-20" id="our-journey-counter">1 / X</div>
+            <div class="bg-[#fcf8ed]/95 backdrop-blur p-8 md:p-10 rounded-3xl shadow-xl relative border-2 border-brand-medium w-full mb-12 animate-fade-in">
+                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-white/80 -rotate-2 shadow-sm border border-gray-100"></div>
+                <h2 class="font-handwriting text-4xl text-brand-dark mb-4 text-center">Our Beautiful Journey 👩‍❤️‍👨</h2>
+                <p class="font-sans text-lg text-brand-dark leading-relaxed text-center font-medium">
+                    Every moment spent with you is a memory I treasure. Here is a look back at us, and to many more beautiful memories yet to come... 🤎
+                </p>
             </div>
-            
-            <button onclick="nextOurJourneyPhoto()" class="nav-btn absolute -right-2 md:-right-8 z-20">&rarr;</button>
+
+            <div class="relative w-full flex items-center justify-center animate-pop-in" style="animation-delay: 0.3s;">
+                <button onclick="prevOurJourneyPhoto()" class="nav-btn absolute -left-2 md:-left-8 z-20">&larr;</button>
+                
+                <!-- Restored .photo-frame class for the white border/bottom space, but NO caption text -->
+                <div class="photo-frame rounded-xl relative w-full max-w-lg mx-auto transform transition-transform duration-500" id="our-photo-frame-container">
+                    <div class="w-full aspect-[3/4] md:aspect-square bg-gray-100 rounded overflow-hidden relative flex items-center justify-center">
+                        <div id="our-img-loader" class="absolute inset-0 flex items-center justify-center text-brand-light text-4xl animate-pulse">🤎</div>
+                        <img id="our-journey-img" src="" alt="Us" class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity duration-300" onload="this.style.opacity=1; document.getElementById('our-img-loader').style.display='none'">
+                    </div>
+                    <div class="absolute top-4 right-4 bg-brand-dark text-brand-cream px-3 py-1 rounded-full text-xs font-bold shadow-md opacity-80 z-20" id="our-journey-counter">1 / X</div>
+                </div>
+                
+                <button onclick="nextOurJourneyPhoto()" class="nav-btn absolute -right-2 md:-right-8 z-20">&rarr;</button>
+            </div>
         </div>
     </div>
 
@@ -311,7 +319,7 @@
             }, 600);
         }
 
-        /* --- Updated Audio Controls (Sequential Playback) --- */
+        /* --- Audio Controls (Sequential Playback) --- */
         let activeAudio = null;
 
         // Auto-play the second song when the first one finishes
@@ -753,7 +761,6 @@
                 };
 
                 ourCounter.innerText = `${currentOurPhotoIndex + 1} / ${ourJourneyData.length}`;
-                
                 ourPhotoFrame.style.transform = 'scale(1)';
             }, 300);
         }
