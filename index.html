@@ -139,11 +139,6 @@
 </head>
 <body class="heart-bg antialiased min-h-screen relative w-full h-full flex flex-col items-center">
 
-    <!-- Floating Music Toggle Button -->
-    <button id="music-toggle" onclick="toggleMusic()" class="fixed bottom-6 right-6 z-50 bg-white/90 border-2 border-brand-medium text-brand-dark p-3 rounded-full shadow-lg hidden hover:bg-brand-medium hover:text-white transition-colors">
-        🔇 Play Music
-    </button>
-
     <div id="auth-screen" class="screen active fixed inset-0 z-50 flex-col items-center justify-center bg-brand-cream bg-opacity-95 backdrop-blur-sm px-4">
         <div class="text-center animate-pop-in p-6 md:p-8 rounded-3xl shadow-2xl bg-white/90 border-4 border-brand-light max-w-lg w-full">
             <div class="text-6xl mb-2 animate-float">🔒🐼</div>
@@ -250,7 +245,6 @@
             <div class="photo-frame rounded-xl relative w-full max-w-lg mx-auto transform transition-transform duration-500" id="photo-frame-container">
                 <div class="w-full aspect-[3/4] md:aspect-square bg-gray-100 rounded overflow-hidden relative flex items-center justify-center">
                     <div id="img-loader" class="absolute inset-0 flex items-center justify-center text-brand-light text-4xl animate-pulse">🐼</div>
-                    <!-- CHANGED object-contain to object-cover BELOW -->
                     <img id="journey-img" src="" alt="Memory" class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity duration-300" onload="this.style.opacity=1; document.getElementById('img-loader').style.display='none'">
                 </div>
                 <p id="journey-caption" class="font-handwriting text-3xl md:text-4xl mt-6 text-brand-dark text-center min-h-[3rem]"></p>
@@ -278,14 +272,12 @@
         <div class="relative w-full flex items-center justify-center animate-pop-in" style="animation-delay: 0.3s;">
             <button onclick="prevOurJourneyPhoto()" class="nav-btn absolute -left-2 md:-left-8 z-20">&larr;</button>
             
-            <div class="photo-frame rounded-xl relative w-full max-w-lg mx-auto transform transition-transform duration-500" id="our-photo-frame-container">
-                <div class="w-full aspect-[3/4] md:aspect-square bg-gray-100 rounded overflow-hidden relative flex items-center justify-center">
+            <div class="rounded-2xl relative w-full max-w-lg mx-auto transform transition-transform duration-500 shadow-2xl bg-gray-100 overflow-hidden border-2 border-brand-light" id="our-photo-frame-container">
+                <div class="w-full aspect-[3/4] md:aspect-square relative flex items-center justify-center">
                     <div id="our-img-loader" class="absolute inset-0 flex items-center justify-center text-brand-light text-4xl animate-pulse">🤎</div>
-                    <!-- CHANGED object-contain to object-cover BELOW -->
                     <img id="our-journey-img" src="" alt="Us" class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity duration-300" onload="this.style.opacity=1; document.getElementById('our-img-loader').style.display='none'">
                 </div>
-                <p id="our-journey-caption" class="font-handwriting text-3xl md:text-4xl mt-6 text-brand-dark text-center min-h-[3rem]"></p>
-                <div class="absolute top-4 right-4 bg-brand-dark text-brand-cream px-3 py-1 rounded-full text-xs font-bold shadow-md opacity-80" id="our-journey-counter">1 / X</div>
+                <div class="absolute top-4 right-4 bg-brand-dark text-brand-cream px-3 py-1 rounded-full text-xs font-bold shadow-md opacity-80 z-20" id="our-journey-counter">1 / X</div>
             </div>
             
             <button onclick="nextOurJourneyPhoto()" class="nav-btn absolute -right-2 md:-right-8 z-20">&rarr;</button>
@@ -333,19 +325,6 @@
             });
         });
 
-        function toggleMusic() {
-            if(!activeAudio) return;
-            const btn = document.getElementById('music-toggle');
-            if(activeAudio.paused) {
-                activeAudio.play().then(() => {
-                    btn.innerHTML = '🔊 Music On';
-                }).catch(e => console.log("Still blocked:", e));
-            } else {
-                activeAudio.pause();
-                btn.innerHTML = '🔇 Music Off';
-            }
-        }
-
         function stopAllMusic() {
             document.getElementById('journey-music').pause();
             document.getElementById('our-journey-music').pause();
@@ -356,20 +335,15 @@
             document.getElementById('our-journey-music').currentTime = 0;
             document.getElementById('our-journey-music-2').currentTime = 0;
             
-            document.getElementById('music-toggle').innerHTML = '🔇 Play Music';
             activeAudio = null;
         }
 
         function playMusicForSection(audioId) {
             stopAllMusic(); // Pause any other playing music first
             activeAudio = document.getElementById(audioId);
-            const btn = document.getElementById('music-toggle');
             
-            activeAudio.play().then(() => {
-                btn.innerHTML = '🔊 Music On';
-            }).catch(function(error) {
+            activeAudio.play().catch(function(error) {
                 console.log("Browser paused the music automatically:", error);
-                btn.innerHTML = '🔇 Play Music';
             });
         }
 
@@ -632,8 +606,6 @@
             setTimeout(() => {
                 customPopup.classList.add('active');
                 launchConfetti();
-                // Show music button after they pass the lock screens
-                document.getElementById('music-toggle').classList.remove('hidden');
             }, 300);
         }
 
@@ -734,7 +706,6 @@
         }
 
         /* --- Our Journey Gallery Data --- */
-        // ADD YOUR REAL IMAGE FILENAMES HERE! 
          const ourJourneyData = [
             { src: "Us1.jpg"},
             { src: "Us2.jpg"},
@@ -756,13 +727,10 @@
             { src: "Us18.jpg"},
             { src: "Us19.jpg"},
             { src: "Us20.jpg"}
-            // Add as many as you need here, following the same format!
         ];
-
 
         let currentOurPhotoIndex = 0;
         const ourImg = document.getElementById('our-journey-img');
-        const ourCaption = document.getElementById('our-journey-caption');
         const ourCounter = document.getElementById('our-journey-counter');
         const ourLoader = document.getElementById('our-img-loader');
         const ourPhotoFrame = document.getElementById('our-photo-frame-container');
@@ -770,11 +738,9 @@
         function updateOurJourneyView() {
             const data = ourJourneyData[currentOurPhotoIndex];
             
-            // Failsafe if data is undefined (prevents the 'undefined' text error)
             if(!data) return;
 
             ourImg.style.opacity = '0';
-            ourCaption.style.opacity = '0';
             ourPhotoFrame.style.transform = 'scale(0.98)';
             
             setTimeout(() => {
@@ -782,16 +748,13 @@
                 ourImg.src = data.src;
                 
                 ourImg.onerror = function() {
-                    this.src = `https://placehold.co/600x800/FFF8DC/8B5A2B?text=${encodeURIComponent(data.caption)}`;
+                    this.src = `https://placehold.co/600x800/FFF8DC/8B5A2B?text=Memory`;
                     this.onerror = null; 
                 };
 
-                ourCaption.innerText = data.caption;
                 ourCounter.innerText = `${currentOurPhotoIndex + 1} / ${ourJourneyData.length}`;
                 
-                ourCaption.style.opacity = '1';
                 ourPhotoFrame.style.transform = 'scale(1)';
-                ourCaption.style.transition = 'opacity 0.4s ease';
             }, 300);
         }
 
