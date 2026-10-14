@@ -217,40 +217,36 @@
         </div>
     </div>
 
-    <!-- YOUR JOURNEY GALLERY (Now with yourbg.jpg Frame) -->
-    <div id="journey-section" class="screen min-h-screen w-full flex-col items-center relative bg-cover bg-center bg-fixed" style="background-image: url('yourbg.jpg');">
-        <div class="absolute inset-0 bg-black/30 z-0"></div>
+    <!-- YOUR JOURNEY GALLERY -->
+    <div id="journey-section" class="screen min-h-screen py-10 px-4 w-full max-w-4xl mx-auto flex-col items-center relative pb-32">
+        <button onclick="backToMenu()" class="absolute top-4 left-4 bg-white/80 backdrop-blur border-2 border-brand-light px-4 py-2 rounded-full text-brand-dark font-bold shadow hover:bg-brand-light hover:text-white transition-colors z-20">
+            &larr; Back
+        </button>
         
-        <div class="relative z-10 w-full max-w-4xl mx-auto py-10 px-4 flex flex-col items-center pb-32">
-            <button onclick="backToMenu()" class="self-start mb-8 bg-white/80 backdrop-blur border-2 border-brand-light px-4 py-2 rounded-full text-brand-dark font-bold shadow hover:bg-brand-light hover:text-white transition-colors">
-                &larr; Back
-            </button>
-            
-            <div class="bg-[#fcf8ed]/95 backdrop-blur p-8 md:p-10 rounded-3xl shadow-xl relative border-2 border-brand-light w-full mb-12 animate-fade-in">
-                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-white/80 rotate-2 shadow-sm border border-gray-100"></div>
-                <h2 class="font-handwriting text-4xl text-brand-dark mb-4 text-center">My Dearest Girl, 🐼</h2>
-                <p class="font-sans text-lg text-brand-dark leading-relaxed text-center font-medium">
-                    I've been waiting for this exact moment to celebrate you. From the cute little expressions to the beautiful woman you are, every version of you holds my heart. 
-                    This album is a little journey through all the faces I love so much. Wishing you the happiest birthday, my beautiful panda! 🤎✨
-                </p>
-            </div>
+        <div class="bg-[#fcf8ed] p-8 md:p-10 rounded-3xl shadow-xl relative border-2 border-brand-light w-full mt-12 mb-12 animate-fade-in">
+            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-white/80 rotate-2 shadow-sm border border-gray-100"></div>
+            <h2 class="font-handwriting text-4xl text-brand-dark mb-4 text-center">My Dearest Girl, 🐼</h2>
+            <p class="font-sans text-lg text-brand-dark leading-relaxed text-center font-medium">
+                I've been waiting for this exact moment to celebrate you. From the cute little expressions to the beautiful woman you are, every version of you holds my heart. 
+                This album is a little journey through all the faces I love so much. Wishing you the happiest birthday, my beautiful panda! 🤎✨
+            </p>
+        </div>
 
-            <div class="relative w-full flex items-center justify-center animate-pop-in" style="animation-delay: 0.3s;">
-                <button onclick="prevJourneyPhoto()" class="nav-btn absolute -left-2 md:-left-8 z-20">&larr;</button>
-                
-                <!-- YOURBG Background Frame (No white polaroid, no caption) -->
-                <div class="relative w-full max-w-sm md:max-w-md mx-auto transform transition-transform duration-500 shadow-2xl" id="photo-frame-container">
-                    <div class="w-full relative overflow-hidden rounded-xl shadow-xl" style="background-image: url('yourbg.jpg'); background-size: cover; background-position: center; padding: 4% 4% 15% 4%;">
-                        <div class="w-full aspect-[4/5] relative bg-black/5 overflow-hidden shadow-inner flex items-center justify-center rounded-sm">
-                            <div id="img-loader" class="absolute inset-0 flex items-center justify-center text-white/50 text-4xl animate-pulse">🧚‍♀️✨</div>
-                            <img id="journey-img" src="" alt="Memory" class="w-full h-full object-cover transition-opacity duration-300 opacity-0" onload="this.style.opacity=1; document.getElementById('img-loader').style.display='none'">
-                        </div>
+        <div class="relative w-full flex items-center justify-center animate-pop-in" style="animation-delay: 0.3s;">
+            <button onclick="prevJourneyPhoto()" class="nav-btn absolute -left-2 md:-left-8 z-20">&larr;</button>
+            
+            <!-- YOURBG Background Frame (No caption) -->
+            <div class="relative w-full max-w-sm md:max-w-md mx-auto transform transition-transform duration-500 shadow-2xl" id="photo-frame-container">
+                <div class="w-full relative overflow-hidden rounded-xl shadow-xl" style="background-image: url('yourbg.jpg'); background-size: cover; background-position: center; padding: 4% 4% 15% 4%;">
+                    <div class="w-full aspect-[4/5] relative bg-black/5 overflow-hidden shadow-inner flex items-center justify-center rounded-sm">
+                        <div id="img-loader" class="absolute inset-0 flex items-center justify-center text-white/50 text-4xl animate-pulse">🧚‍♀️✨</div>
+                        <img id="journey-img" src="" alt="Memory" class="w-full h-full object-cover transition-opacity duration-300 opacity-0" onload="this.style.opacity=1; document.getElementById('img-loader').style.display='none'">
                     </div>
-                    <div class="absolute top-4 right-4 bg-white/90 text-brand-dark px-3 py-1 rounded-full text-xs font-bold shadow-md z-20" id="journey-counter">1 / 21</div>
                 </div>
-                
-                <button onclick="nextJourneyPhoto()" class="nav-btn absolute -right-2 md:-right-8 z-20">&rarr;</button>
+                <div class="absolute top-4 right-4 bg-white/90 text-brand-dark px-3 py-1 rounded-full text-xs font-bold shadow-md z-20" id="journey-counter">1 / 21</div>
             </div>
+            
+            <button onclick="nextJourneyPhoto()" class="nav-btn absolute -right-2 md:-right-8 z-20">&rarr;</button>
         </div>
     </div>
 
@@ -320,6 +316,7 @@
         };
         const customPopup = document.getElementById('custom-popup');
         
+        // --- Game Audio Elements ---
         const soundBowPull = document.getElementById('sound-bowpull');
         const soundBowReleased = document.getElementById('sound-bowrealesed');
         const soundBalloonPop = document.getElementById('sound-balloonpop');
@@ -340,6 +337,7 @@
             }, 600);
         }
 
+        /* --- Updated Audio Controls (Sequential Playback) --- */
         let activeAudio = null;
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -679,28 +677,29 @@
             }
         }
 
+        /* --- Your Journey Gallery Data --- */
         const journeyData = [
-            { src: "1.jpg", caption: "Kutty Kunjan" },
-            { src: "2.jpg", caption: "Elumbi" },
-            { src: "3.jpg", caption: "azhagi" },
-            { src: "44.jpg", caption: "siripu azhagi" },
-            { src: "5.jpg", caption: "Cutiee" },
-            { src: "6.jpg", caption: "chellameyy" },
-            { src: "7.jpg", caption: "en thanga katti" },
-            { src: "8.jpg", caption: "bonda vaai" },
-            { src: "9.jpg", caption: "rowdy baby" },
-            { src: "10.jpg", caption: "en uyire" },
-            { src: "11.jpg", caption: "pattu kutty" },
-            { src: "12.jpg", caption: "loosu penne" },
-            { src: "13.jpg", caption: "ammu" },
-            { src: "14.jpg", caption: "kutty pisase" },
-            { src: "15.jpg", caption: "en dippam dappam" },
-            { src: "16.jpg", caption: "bujji ma" },
-            { src: "17.jpg", caption: "azhaga sirikira" },
-            { src: "18.jpg", caption: "kadhali" },
-            { src: "19.jpg", caption: "vennila" },
-            { src: "20.jpg", caption: "devathai" },
-            { src: "21.jpg", caption: "Alagu pilla" }
+            { src: "1.jpg" },
+            { src: "2.jpg" },
+            { src: "3.jpg" },
+            { src: "44.jpg" },
+            { src: "5.jpg" },
+            { src: "6.jpg" },
+            { src: "7.jpg" },
+            { src: "8.jpg" },
+            { src: "9.jpg" },
+            { src: "10.jpg" },
+            { src: "11.jpg" },
+            { src: "12.jpg" },
+            { src: "13.jpg" },
+            { src: "14.jpg" },
+            { src: "15.jpg" },
+            { src: "16.jpg" },
+            { src: "17.jpg" },
+            { src: "18.jpg" },
+            { src: "19.jpg" },
+            { src: "20.jpg" },
+            { src: "21.jpg" }
         ];
 
         let currentPhotoIndex = 0;
@@ -711,6 +710,9 @@
 
         function updateJourneyView() {
             const data = journeyData[currentPhotoIndex];
+            
+            if(!data) return;
+
             jImg.style.opacity = '0';
             photoFrame.style.transform = 'scale(0.98)';
             
@@ -724,6 +726,7 @@
                 };
 
                 jCounter.innerText = `${currentPhotoIndex + 1} / ${journeyData.length}`;
+                
                 photoFrame.style.transform = 'scale(1)';
             }, 300);
         }
@@ -738,7 +741,8 @@
             updateJourneyView();
         }
 
-         const ourJourneyData = [
+        /* --- Our Journey Gallery Data --- */
+        const ourJourneyData = [
             { src: "Us1.jpg"},
             { src: "Us2.jpg"},
             { src: "Us3.jpg"},
