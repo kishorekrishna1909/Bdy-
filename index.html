@@ -237,10 +237,8 @@
             <div class="relative w-full flex items-center justify-center animate-pop-in" style="animation-delay: 0.3s;">
                 <button onclick="prevJourneyPhoto()" class="nav-btn absolute -left-4 md:-left-12 z-30">&larr;</button>
                 
-                <!-- INCREASED SIZE: max-w-lg md:max-w-2xl -->
                 <div class="relative w-full max-w-lg md:max-w-2xl mx-auto transform transition-transform duration-500 shadow-2xl z-20" id="photo-frame-container">
                     <div class="w-full relative overflow-hidden rounded-xl shadow-xl border-2 border-brand-light" style="background-image: url('yourbg.jpg'); background-size: cover; background-position: center; padding: 4% 4% 15% 4%;">
-                        <!-- OBJECT-CONTAIN prevents cutting, bg-black/20 fills any empty gaps behind the photo neatly -->
                         <div class="w-full aspect-[3/4] relative bg-black/20 overflow-hidden shadow-inner flex items-center justify-center rounded-md">
                             <div id="img-loader" class="absolute inset-0 flex items-center justify-center text-white/50 text-4xl animate-pulse">🧚‍♀️✨</div>
                             <img id="journey-img" src="" alt="Memory" class="w-full h-full object-contain relative z-10 opacity-0 transition-opacity duration-300" onload="this.style.opacity=1; document.getElementById('img-loader').style.display='none'">
@@ -255,16 +253,14 @@
     </div>
 
     <!-- OUR JOURNEY GALLERY -->
-    <div id="our-journey-section" class="screen min-h-screen py-10 px-4 w-full flex-col items-center relative pb-32 bg-cover bg-center bg-fixed" style="background-image: url('Usbg.jpg');">
-        <!-- Dark overlay to ensure text/buttons are readable -->
-        <div class="absolute inset-0 bg-black/40 z-0"></div>
+    <div id="our-journey-section" class="screen min-h-screen py-10 px-4 w-full flex-col items-center relative pb-32">
         
         <div class="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center">
-            <button onclick="backToMenu()" class="self-start mb-8 bg-white/80 backdrop-blur border-2 border-brand-light px-4 py-2 rounded-full text-brand-dark font-bold shadow hover:bg-brand-light hover:text-white transition-colors">
+            <button onclick="backToMenu()" class="self-start mb-8 bg-white/80 backdrop-blur border-2 border-brand-light px-4 py-2 rounded-full text-brand-dark font-bold shadow hover:bg-brand-light hover:text-white transition-colors z-20">
                 &larr; Back
             </button>
             
-            <div class="bg-[#fcf8ed]/95 backdrop-blur p-8 md:p-10 rounded-3xl shadow-xl relative border-2 border-brand-medium w-full mb-12 animate-fade-in">
+            <div class="bg-[#fcf8ed] p-8 md:p-10 rounded-3xl shadow-xl relative border-2 border-brand-medium w-full mb-12 animate-fade-in z-10">
                 <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-white/80 -rotate-2 shadow-sm border border-gray-100"></div>
                 <h2 class="font-handwriting text-4xl text-brand-dark mb-4 text-center">Our Beautiful Journey 👩‍❤️‍👨</h2>
                 <p class="font-sans text-lg text-brand-dark leading-relaxed text-center font-medium">
@@ -275,10 +271,8 @@
             <div class="relative w-full flex items-center justify-center animate-pop-in" style="animation-delay: 0.3s;">
                 <button onclick="prevOurJourneyPhoto()" class="nav-btn absolute -left-4 md:-left-12 z-30">&larr;</button>
                 
-                <!-- INCREASED SIZE: max-w-lg md:max-w-2xl -->
                 <div class="relative w-full max-w-lg md:max-w-2xl mx-auto transform transition-transform duration-500 shadow-2xl z-20" id="our-photo-frame-container">
                     <div class="w-full relative overflow-hidden rounded-xl shadow-xl border-2 border-brand-light" style="background-image: url('Usbg.jpg'); background-size: cover; background-position: center; padding: 4% 4% 15% 4%;">
-                        <!-- OBJECT-CONTAIN prevents cutting -->
                         <div class="w-full aspect-[3/4] relative bg-black/20 overflow-hidden shadow-inner flex items-center justify-center rounded-md">
                             <div id="our-img-loader" class="absolute inset-0 flex items-center justify-center text-white/50 text-4xl animate-pulse">🤎🤍</div>
                             <img id="our-journey-img" src="" alt="Us" class="w-full h-full object-contain relative z-10 opacity-0 transition-opacity duration-300" onload="this.style.opacity=1; document.getElementById('our-img-loader').style.display='none'">
