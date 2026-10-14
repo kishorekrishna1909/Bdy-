@@ -224,7 +224,7 @@
         </div>
     </div>
 
-    <!-- YOUR JOURNEY GALLERY (With yourbg.jpg Background) -->
+    <!-- YOUR JOURNEY GALLERY -->
     <div id="journey-section" class="screen min-h-screen w-full flex-col items-center relative bg-cover bg-center bg-fixed" style="background-image: url('yourbg.jpg');">
         <!-- Dark overlay to ensure text/buttons are readable on top of yourbg.jpg image -->
         <div class="absolute inset-0 bg-black/30 z-0"></div>
@@ -277,15 +277,12 @@
         <div class="relative w-full flex items-center justify-center animate-pop-in" style="animation-delay: 0.3s;">
             <button onclick="prevOurJourneyPhoto()" class="nav-btn absolute -left-2 md:-left-8 z-20">&larr;</button>
             
-            <!-- USBG Background Frame - Much larger image space, completely replacing the white frame -->
-            <div class="relative w-full max-w-sm md:max-w-md mx-auto transform transition-transform duration-500 shadow-2xl" id="our-photo-frame-container">
-                <div class="w-full relative overflow-hidden rounded-xl shadow-xl" style="background-image: url('Usbg.jpg'); background-size: cover; background-position: center; padding: 4% 4% 15% 4%;">
-                    <div class="w-full aspect-[4/5] relative bg-black/5 overflow-hidden shadow-inner flex items-center justify-center rounded-sm">
-                        <div id="our-img-loader" class="absolute inset-0 flex items-center justify-center text-white/50 text-4xl animate-pulse">🤎🤍</div>
-                        <img id="our-journey-img" src="" alt="Us" class="w-full h-full object-cover transition-opacity duration-300 opacity-0" onload="this.style.opacity=1; document.getElementById('our-img-loader').style.display='none'">
-                    </div>
+            <div class="rounded-2xl relative w-full max-w-lg mx-auto transform transition-transform duration-500 shadow-2xl bg-gray-100 overflow-hidden border-2 border-brand-light" id="our-photo-frame-container">
+                <div class="w-full aspect-[3/4] md:aspect-square relative flex items-center justify-center">
+                    <div id="our-img-loader" class="absolute inset-0 flex items-center justify-center text-brand-light text-4xl animate-pulse">🤎</div>
+                    <img id="our-journey-img" src="" alt="Us" class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity duration-300" onload="this.style.opacity=1; document.getElementById('our-img-loader').style.display='none'">
                 </div>
-                <div class="absolute top-4 right-4 bg-white/90 text-brand-dark px-3 py-1 rounded-full text-xs font-bold shadow-md z-20" id="our-journey-counter">1 / X</div>
+                <div class="absolute top-4 right-4 bg-brand-dark text-brand-cream px-3 py-1 rounded-full text-xs font-bold shadow-md opacity-80 z-20" id="our-journey-counter">1 / X</div>
             </div>
             
             <button onclick="nextOurJourneyPhoto()" class="nav-btn absolute -right-2 md:-right-8 z-20">&rarr;</button>
@@ -349,7 +346,7 @@
             }, 600);
         }
 
-        /* --- Audio Controls (Sequential Playback) --- */
+        /* --- Updated Audio Controls (Sequential Playback) --- */
         let activeAudio = null;
 
         // Auto-play the second song when the first one finishes
@@ -530,8 +527,10 @@
 
                 if (Math.hypot(dx, dy) > 15) {
                     arrow.isFired = true;
-                    arrow.vx = dx * 0.35;
-                    arrow.vy = dy * 0.35;
+                    // FIX: Slowed down the arrow flight speed from 0.35 to 0.18
+                    // so the "twang" sound has time to play before the hit
+                    arrow.vx = dx * 0.18;
+                    arrow.vy = dy * 0.18;
                     arrow.angle = Math.atan2(dy, dx);
                     
                     // Play Bow Release Sound safely
