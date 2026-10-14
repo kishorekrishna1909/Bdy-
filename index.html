@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy Birthday My Gurl 🐼🤎</title>
+    <title>Happy Birthday My Gurl 🐼</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
     
@@ -185,7 +185,7 @@
 
     <div id="game-screen" class="screen fixed inset-0 z-30 bg-brand-cream flex-col items-center justify-center">
         <div class="absolute top-10 text-center z-10 pointer-events-none w-full px-4">
-            <h2 class="text-3xl font-bold text-brand-dark animate-pulse bg-white/70 inline-block px-4 py-2 rounded-full">Shoot the heart to unlock! 🏹🤎</h2>
+            <h2 class="text-3xl font-bold text-brand-dark animate-pulse bg-white/70 inline-block px-4 py-2 rounded-full">Shoot the heart to unlock! 🏹💖</h2>
             <p class="text-brand-medium mt-2 font-handwriting text-2xl bg-white/70 inline-block px-4 py-1 rounded-full">Pull back anywhere and release</p>
         </div>
         <div class="relative w-full h-full max-w-5xl mx-auto overflow-hidden shadow-inner border-x-4 border-brand-light bg-white/40">
@@ -218,67 +218,77 @@
     </div>
 
     <!-- YOUR JOURNEY GALLERY -->
-    <div id="journey-section" class="screen min-h-screen py-10 px-4 w-full max-w-4xl mx-auto flex-col items-center relative pb-32">
-        <button onclick="backToMenu()" class="absolute top-4 left-4 bg-white/80 backdrop-blur border-2 border-brand-light px-4 py-2 rounded-full text-brand-dark font-bold shadow hover:bg-brand-light hover:text-white transition-colors z-20">
-            &larr; Back
-        </button>
+    <div id="journey-section" class="screen min-h-screen py-10 px-4 w-full flex-col items-center relative pb-32">
         
-        <div class="bg-[#fcf8ed] p-8 md:p-10 rounded-3xl shadow-xl relative border-2 border-brand-light w-full mt-12 mb-12 animate-fade-in">
-            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-white/80 rotate-2 shadow-sm border border-gray-100"></div>
-            <h2 class="font-handwriting text-4xl text-brand-dark mb-4 text-center">My Dearest Girl, 🐼</h2>
-            <p class="font-sans text-lg text-brand-dark leading-relaxed text-center font-medium">
-                I've been waiting for this exact moment to celebrate you. From the cute little expressions to the beautiful woman you are, every version of you holds my heart. 
-                This album is a little journey through all the faces I love so much. Wishing you the happiest birthday, my beautiful panda! 🤎✨
-            </p>
-        </div>
-
-        <div class="relative w-full flex items-center justify-center animate-pop-in" style="animation-delay: 0.3s;">
-            <button onclick="prevJourneyPhoto()" class="nav-btn absolute -left-2 md:-left-8 z-20">&larr;</button>
+        <div class="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center">
+            <button onclick="backToMenu()" class="self-start mb-8 bg-white/80 backdrop-blur border-2 border-brand-light px-4 py-2 rounded-full text-brand-dark font-bold shadow hover:bg-brand-light hover:text-white transition-colors z-20">
+                &larr; Back
+            </button>
             
-            <!-- YOURBG Background Frame (No caption) -->
-            <div class="relative w-full max-w-sm md:max-w-md mx-auto transform transition-transform duration-500 shadow-2xl" id="photo-frame-container">
-                <div class="w-full relative overflow-hidden rounded-xl shadow-xl" style="background-image: url('yourbg.jpg'); background-size: cover; background-position: center; padding: 4% 4% 15% 4%;">
-                    <div class="w-full aspect-[4/5] relative bg-black/5 overflow-hidden shadow-inner flex items-center justify-center rounded-sm">
-                        <div id="img-loader" class="absolute inset-0 flex items-center justify-center text-white/50 text-4xl animate-pulse">🧚‍♀️✨</div>
-                        <img id="journey-img" src="" alt="Memory" class="w-full h-full object-cover transition-opacity duration-300 opacity-0" onload="this.style.opacity=1; document.getElementById('img-loader').style.display='none'">
-                    </div>
-                </div>
-                <div class="absolute top-4 right-4 bg-white/90 text-brand-dark px-3 py-1 rounded-full text-xs font-bold shadow-md z-20" id="journey-counter">1 / 21</div>
+            <div class="bg-[#fcf8ed] p-8 md:p-10 rounded-3xl shadow-xl relative border-2 border-brand-light w-full mb-12 animate-fade-in z-10">
+                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-white/80 rotate-2 shadow-sm border border-gray-100"></div>
+                <h2 class="font-handwriting text-4xl text-brand-dark mb-4 text-center">My Dearest Girl, 🐼</h2>
+                <p class="font-sans text-lg text-brand-dark leading-relaxed text-center font-medium">
+                    I've been waiting for this exact moment to celebrate you. From the cute little expressions to the beautiful woman you are, every version of you holds my heart. 
+                    This album is a little journey through all the faces I love so much. Wishing you the happiest birthday, my beautiful panda! 🤎✨
+                </p>
             </div>
-            
-            <button onclick="nextJourneyPhoto()" class="nav-btn absolute -right-2 md:-right-8 z-20">&rarr;</button>
+
+            <div class="relative w-full flex items-center justify-center animate-pop-in" style="animation-delay: 0.3s;">
+                <button onclick="prevJourneyPhoto()" class="nav-btn absolute -left-4 md:-left-12 z-30">&larr;</button>
+                
+                <!-- INCREASED SIZE: max-w-lg md:max-w-2xl -->
+                <div class="relative w-full max-w-lg md:max-w-2xl mx-auto transform transition-transform duration-500 shadow-2xl z-20" id="photo-frame-container">
+                    <div class="w-full relative overflow-hidden rounded-xl shadow-xl border-2 border-brand-light" style="background-image: url('yourbg.jpg'); background-size: cover; background-position: center; padding: 4% 4% 15% 4%;">
+                        <!-- OBJECT-CONTAIN prevents cutting, bg-black/20 fills any empty gaps behind the photo neatly -->
+                        <div class="w-full aspect-[3/4] relative bg-black/20 overflow-hidden shadow-inner flex items-center justify-center rounded-md">
+                            <div id="img-loader" class="absolute inset-0 flex items-center justify-center text-white/50 text-4xl animate-pulse">🧚‍♀️✨</div>
+                            <img id="journey-img" src="" alt="Memory" class="w-full h-full object-contain relative z-10 opacity-0 transition-opacity duration-300" onload="this.style.opacity=1; document.getElementById('img-loader').style.display='none'">
+                        </div>
+                    </div>
+                    <div class="absolute top-4 right-4 bg-white/90 text-brand-dark px-3 py-1 rounded-full text-xs font-bold shadow-md z-30" id="journey-counter">1 / 21</div>
+                </div>
+                
+                <button onclick="nextJourneyPhoto()" class="nav-btn absolute -right-4 md:-right-12 z-30">&rarr;</button>
+            </div>
         </div>
     </div>
 
     <!-- OUR JOURNEY GALLERY -->
-    <div id="our-journey-section" class="screen min-h-screen py-10 px-4 w-full max-w-4xl mx-auto flex-col items-center relative pb-32">
-        <button onclick="backToMenu()" class="absolute top-4 left-4 bg-white/80 backdrop-blur border-2 border-brand-light px-4 py-2 rounded-full text-brand-dark font-bold shadow hover:bg-brand-light hover:text-white transition-colors z-20">
-            &larr; Back
-        </button>
+    <div id="our-journey-section" class="screen min-h-screen py-10 px-4 w-full flex-col items-center relative pb-32 bg-cover bg-center bg-fixed" style="background-image: url('Usbg.jpg');">
+        <!-- Dark overlay to ensure text/buttons are readable -->
+        <div class="absolute inset-0 bg-black/40 z-0"></div>
         
-        <div class="bg-[#fcf8ed] p-8 md:p-10 rounded-3xl shadow-xl relative border-2 border-brand-medium w-full mt-12 mb-12 animate-fade-in">
-            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-white/80 -rotate-2 shadow-sm border border-gray-100"></div>
-            <h2 class="font-handwriting text-4xl text-brand-dark mb-4 text-center">Our Beautiful Journey 👩‍❤️‍👨</h2>
-            <p class="font-sans text-lg text-brand-dark leading-relaxed text-center font-medium">
-                Every moment spent with you is a memory I treasure. Here is a look back at us, and to many more beautiful memories yet to come... 🤎
-            </p>
-        </div>
-
-        <div class="relative w-full flex items-center justify-center animate-pop-in" style="animation-delay: 0.3s;">
-            <button onclick="prevOurJourneyPhoto()" class="nav-btn absolute -left-2 md:-left-8 z-20">&larr;</button>
+        <div class="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center">
+            <button onclick="backToMenu()" class="self-start mb-8 bg-white/80 backdrop-blur border-2 border-brand-light px-4 py-2 rounded-full text-brand-dark font-bold shadow hover:bg-brand-light hover:text-white transition-colors">
+                &larr; Back
+            </button>
             
-            <!-- USBG Background Frame -->
-            <div class="relative w-full max-w-sm md:max-w-md mx-auto transform transition-transform duration-500 shadow-2xl" id="our-photo-frame-container">
-                <div class="w-full relative overflow-hidden rounded-xl shadow-xl" style="background-image: url('Usbg.jpg'); background-size: cover; background-position: center; padding: 4% 4% 15% 4%;">
-                    <div class="w-full aspect-[4/5] relative bg-black/5 overflow-hidden shadow-inner flex items-center justify-center rounded-sm">
-                        <div id="our-img-loader" class="absolute inset-0 flex items-center justify-center text-white/50 text-4xl animate-pulse">🤎🤍</div>
-                        <img id="our-journey-img" src="" alt="Us" class="w-full h-full object-cover transition-opacity duration-300 opacity-0" onload="this.style.opacity=1; document.getElementById('our-img-loader').style.display='none'">
-                    </div>
-                </div>
-                <div class="absolute top-4 right-4 bg-white/90 text-brand-dark px-3 py-1 rounded-full text-xs font-bold shadow-md z-20" id="our-journey-counter">1 / X</div>
+            <div class="bg-[#fcf8ed]/95 backdrop-blur p-8 md:p-10 rounded-3xl shadow-xl relative border-2 border-brand-medium w-full mb-12 animate-fade-in">
+                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-white/80 -rotate-2 shadow-sm border border-gray-100"></div>
+                <h2 class="font-handwriting text-4xl text-brand-dark mb-4 text-center">Our Beautiful Journey 👩‍❤️‍👨</h2>
+                <p class="font-sans text-lg text-brand-dark leading-relaxed text-center font-medium">
+                    Every moment spent with you is a memory I treasure. Here is a look back at us, and to many more beautiful memories yet to come... 🤎
+                </p>
             </div>
-            
-            <button onclick="nextOurJourneyPhoto()" class="nav-btn absolute -right-2 md:-right-8 z-20">&rarr;</button>
+
+            <div class="relative w-full flex items-center justify-center animate-pop-in" style="animation-delay: 0.3s;">
+                <button onclick="prevOurJourneyPhoto()" class="nav-btn absolute -left-4 md:-left-12 z-30">&larr;</button>
+                
+                <!-- INCREASED SIZE: max-w-lg md:max-w-2xl -->
+                <div class="relative w-full max-w-lg md:max-w-2xl mx-auto transform transition-transform duration-500 shadow-2xl z-20" id="our-photo-frame-container">
+                    <div class="w-full relative overflow-hidden rounded-xl shadow-xl border-2 border-brand-light" style="background-image: url('Usbg.jpg'); background-size: cover; background-position: center; padding: 4% 4% 15% 4%;">
+                        <!-- OBJECT-CONTAIN prevents cutting -->
+                        <div class="w-full aspect-[3/4] relative bg-black/20 overflow-hidden shadow-inner flex items-center justify-center rounded-md">
+                            <div id="our-img-loader" class="absolute inset-0 flex items-center justify-center text-white/50 text-4xl animate-pulse">🤎🤍</div>
+                            <img id="our-journey-img" src="" alt="Us" class="w-full h-full object-contain relative z-10 opacity-0 transition-opacity duration-300" onload="this.style.opacity=1; document.getElementById('our-img-loader').style.display='none'">
+                        </div>
+                    </div>
+                    <div class="absolute top-4 right-4 bg-white/90 text-brand-dark px-3 py-1 rounded-full text-xs font-bold shadow-md z-30" id="our-journey-counter">1 / X</div>
+                </div>
+                
+                <button onclick="nextOurJourneyPhoto()" class="nav-btn absolute -right-4 md:-right-12 z-30">&rarr;</button>
+            </div>
         </div>
     </div>
 
@@ -337,7 +347,6 @@
             }, 600);
         }
 
-        /* --- Updated Audio Controls (Sequential Playback) --- */
         let activeAudio = null;
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -677,7 +686,6 @@
             }
         }
 
-        /* --- Your Journey Gallery Data --- */
         const journeyData = [
             { src: "1.jpg" },
             { src: "2.jpg" },
@@ -726,7 +734,6 @@
                 };
 
                 jCounter.innerText = `${currentPhotoIndex + 1} / ${journeyData.length}`;
-                
                 photoFrame.style.transform = 'scale(1)';
             }, 300);
         }
@@ -741,7 +748,6 @@
             updateJourneyView();
         }
 
-        /* --- Our Journey Gallery Data --- */
         const ourJourneyData = [
             { src: "Us1.jpg"},
             { src: "Us2.jpg"},
