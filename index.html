@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy Birthday My Gurl🐼🤎</title>
+    <title>Happy Birthday My Gurl 🐼🤎</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
     
@@ -213,45 +213,50 @@
     <div id="main-menu" class="screen min-h-screen py-12 px-4 sm:px-6 flex-col items-center justify-center relative w-full max-w-5xl mx-auto">
         <div class="flex flex-col md:flex-row gap-6 w-full justify-center animate-fade-in">
             <button onclick="showSection('journey-section')" class="flex-1 bg-white border-4 border-brand-light p-8 rounded-[2rem] shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all group flex flex-col items-center justify-center min-h-[250px]">
-                <div class="text-6xl mb-4 group-hover:animate-float">🧚‍♀️🤎</div>
+                <div class="text-6xl mb-4 group-hover:animate-float">✨</div>
                 <h2 class="text-3xl font-bold text-brand-dark font-handwriting text-center">Your Journey</h2>
             </button>
             
             <button onclick="showSection('our-journey-section')" class="flex-1 bg-white border-4 border-brand-medium p-8 rounded-[2rem] shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all group flex flex-col items-center justify-center min-h-[250px]">
-                <div class="text-6xl mb-4 group-hover:animate-float">🤎🤍</div>
+                <div class="text-6xl mb-4 group-hover:animate-float">🤎</div>
                 <h2 class="text-3xl font-bold text-brand-dark font-handwriting text-center">Our Journey</h2>
             </button>
         </div>
     </div>
 
-    <!-- YOUR JOURNEY GALLERY -->
-    <div id="journey-section" class="screen min-h-screen py-10 px-4 w-full max-w-4xl mx-auto flex-col items-center relative pb-32">
-        <button onclick="backToMenu()" class="absolute top-4 left-4 bg-white/80 backdrop-blur border-2 border-brand-light px-4 py-2 rounded-full text-brand-dark font-bold shadow hover:bg-brand-light hover:text-white transition-colors z-20">
-            &larr; Back
-        </button>
+    <!-- YOUR JOURNEY GALLERY (With yourbg.jpg Background) -->
+    <div id="journey-section" class="screen min-h-screen w-full flex-col items-center relative bg-cover bg-center bg-fixed" style="background-image: url('yourbg.jpg');">
+        <!-- Dark overlay to ensure text/buttons are readable on top of yourbg.jpg image -->
+        <div class="absolute inset-0 bg-black/30 z-0"></div>
         
-        <div class="bg-[#fcf8ed] p-8 md:p-10 rounded-3xl shadow-xl relative border-2 border-brand-light w-full mt-12 mb-12 animate-fade-in">
-            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-white/80 rotate-2 shadow-sm border border-gray-100"></div>
-            <h2 class="font-handwriting text-4xl text-brand-dark mb-4 text-center">My Dearest Girl, 🐼</h2>
-            <p class="font-sans text-lg text-brand-dark leading-relaxed text-center font-medium">
-                I've been waiting for this exact moment to celebrate you. From the cute little expressions to the beautiful woman you are, every version of you holds my heart. 
-                This album is a little journey through all the faces I love so much. Wishing you the happiest birthday, my beautiful panda! 🤎✨
-            </p>
-        </div>
-
-        <div class="relative w-full flex items-center justify-center animate-pop-in" style="animation-delay: 0.3s;">
-            <button onclick="prevJourneyPhoto()" class="nav-btn absolute -left-2 md:-left-8 z-20">&larr;</button>
+        <div class="relative z-10 w-full max-w-4xl mx-auto py-10 px-4 flex flex-col items-center pb-32">
+            <button onclick="backToMenu()" class="self-start mb-8 bg-white/80 backdrop-blur border-2 border-brand-light px-4 py-2 rounded-full text-brand-dark font-bold shadow hover:bg-brand-light hover:text-white transition-colors">
+                &larr; Back
+            </button>
             
-            <div class="photo-frame rounded-xl relative w-full max-w-lg mx-auto transform transition-transform duration-500" id="photo-frame-container">
-                <div class="w-full aspect-[3/4] md:aspect-square bg-gray-100 rounded overflow-hidden relative flex items-center justify-center">
-                    <div id="img-loader" class="absolute inset-0 flex items-center justify-center text-brand-light text-4xl animate-pulse">🧚‍♀️✨</div>
-                    <img id="journey-img" src="" alt="Memory" class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity duration-300" onload="this.style.opacity=1; document.getElementById('img-loader').style.display='none'">
-                </div>
-                <p id="journey-caption" class="font-handwriting text-3xl md:text-4xl mt-6 text-brand-dark text-center min-h-[3rem]"></p>
-                <div class="absolute top-4 right-4 bg-brand-dark text-brand-cream px-3 py-1 rounded-full text-xs font-bold shadow-md opacity-80" id="journey-counter">1 / 21</div>
+            <div class="bg-[#fcf8ed]/95 backdrop-blur p-8 md:p-10 rounded-3xl shadow-xl relative border-2 border-brand-light w-full mb-12 animate-fade-in">
+                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-white/80 rotate-2 shadow-sm border border-gray-100"></div>
+                <h2 class="font-handwriting text-4xl text-brand-dark mb-4 text-center">My Dearest Girl, 🐼</h2>
+                <p class="font-sans text-lg text-brand-dark leading-relaxed text-center font-medium">
+                    I've been waiting for this exact moment to celebrate you. From the cute little expressions to the beautiful woman you are, every version of you holds my heart. 
+                    This album is a little journey through all the faces I love so much. Wishing you the happiest birthday, my beautiful panda! 🤎✨
+                </p>
             </div>
-            
-            <button onclick="nextJourneyPhoto()" class="nav-btn absolute -right-2 md:-right-8 z-20">&rarr;</button>
+
+            <div class="relative w-full flex items-center justify-center animate-pop-in" style="animation-delay: 0.3s;">
+                <button onclick="prevJourneyPhoto()" class="nav-btn absolute -left-2 md:-left-8 z-20">&larr;</button>
+                
+                <div class="photo-frame rounded-xl relative w-full max-w-lg mx-auto transform transition-transform duration-500" id="photo-frame-container">
+                    <div class="w-full aspect-[3/4] md:aspect-square bg-gray-100 rounded overflow-hidden relative flex items-center justify-center">
+                        <div id="img-loader" class="absolute inset-0 flex items-center justify-center text-brand-light text-4xl animate-pulse">🐼</div>
+                        <img id="journey-img" src="" alt="Memory" class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity duration-300" onload="this.style.opacity=1; document.getElementById('img-loader').style.display='none'">
+                    </div>
+                    <p id="journey-caption" class="font-handwriting text-3xl md:text-4xl mt-6 text-brand-dark text-center min-h-[3rem]"></p>
+                    <div class="absolute top-4 right-4 bg-brand-dark text-brand-cream px-3 py-1 rounded-full text-xs font-bold shadow-md opacity-80" id="journey-counter">1 / 21</div>
+                </div>
+                
+                <button onclick="nextJourneyPhoto()" class="nav-btn absolute -right-2 md:-right-8 z-20">&rarr;</button>
+            </div>
         </div>
     </div>
 
@@ -272,15 +277,12 @@
         <div class="relative w-full flex items-center justify-center animate-pop-in" style="animation-delay: 0.3s;">
             <button onclick="prevOurJourneyPhoto()" class="nav-btn absolute -left-2 md:-left-8 z-20">&larr;</button>
             
-            <!-- USBG Background Frame - Much larger image space, completely replacing the white frame -->
-            <div class="relative w-full max-w-sm md:max-w-md mx-auto transform transition-transform duration-500 shadow-2xl" id="our-photo-frame-container">
-                <div class="w-full relative overflow-hidden rounded-xl shadow-xl" style="background-image: url('Usbg.jpg'); background-size: cover; background-position: center; padding: 4% 4% 15% 4%;">
-                    <div class="w-full aspect-[4/5] relative bg-black/5 overflow-hidden shadow-inner flex items-center justify-center rounded-sm">
-                        <div id="our-img-loader" class="absolute inset-0 flex items-center justify-center text-white/50 text-4xl animate-pulse">🤎🤍</div>
-                        <img id="our-journey-img" src="" alt="Us" class="w-full h-full object-cover transition-opacity duration-300 opacity-0" onload="this.style.opacity=1; document.getElementById('our-img-loader').style.display='none'">
-                    </div>
+            <div class="rounded-2xl relative w-full max-w-lg mx-auto transform transition-transform duration-500 shadow-2xl bg-gray-100 overflow-hidden border-2 border-brand-light" id="our-photo-frame-container">
+                <div class="w-full aspect-[3/4] md:aspect-square relative flex items-center justify-center">
+                    <div id="our-img-loader" class="absolute inset-0 flex items-center justify-center text-brand-light text-4xl animate-pulse">🤎</div>
+                    <img id="our-journey-img" src="" alt="Us" class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity duration-300" onload="this.style.opacity=1; document.getElementById('our-img-loader').style.display='none'">
                 </div>
-                <div class="absolute top-4 right-4 bg-white/90 text-brand-dark px-3 py-1 rounded-full text-xs font-bold shadow-md z-20" id="our-journey-counter">1 / X</div>
+                <div class="absolute top-4 right-4 bg-brand-dark text-brand-cream px-3 py-1 rounded-full text-xs font-bold shadow-md opacity-80 z-20" id="our-journey-counter">1 / X</div>
             </div>
             
             <button onclick="nextOurJourneyPhoto()" class="nav-btn absolute -right-2 md:-right-8 z-20">&rarr;</button>
@@ -298,6 +300,11 @@
         };
         const customPopup = document.getElementById('custom-popup');
         
+        // --- Setup Game Audio Elements ---
+        const soundBowPull = document.getElementById('sound-bowpull');
+        const soundBowReleased = document.getElementById('sound-bowrealesed');
+        const soundBalloonPop = document.getElementById('sound-balloonpop');
+
         let countdownInterval;
         const targetDate = new Date("October 20, 2026 00:00:00").getTime();
 
@@ -459,6 +466,10 @@
                 drag.startY = pos.y;
                 drag.currX = pos.x;
                 drag.currY = pos.y;
+
+                // Play Bow Pull Sound
+                soundBowPull.currentTime = 0;
+                soundBowPull.play().catch(e => console.log(e));
             }
 
             function pointerMove(e) {
@@ -484,11 +495,18 @@
                 const dx = drag.startX - drag.currX;
                 const dy = drag.startY - drag.currY;
                 
+                // Stop the pull sound when released
+                soundBowPull.pause();
+
                 if (Math.hypot(dx, dy) > 15) {
                     arrow.isFired = true;
                     arrow.vx = dx * 0.35;
                     arrow.vy = dy * 0.35;
                     arrow.angle = Math.atan2(dy, dx);
+
+                    // Play Bow Release Sound
+                    soundBowReleased.currentTime = 0;
+                    soundBowReleased.play().catch(e => console.log(e));
                 }
             }
 
@@ -593,6 +611,11 @@
                     const distToTarget = Math.hypot(arrow.x + (arrow.length/2)*Math.cos(arrow.angle) - target.x, arrow.y + (arrow.length/2)*Math.sin(arrow.angle) - target.y);
                     if (distToTarget < target.radius) {
                         gameState = 'hit';
+                        
+                        // Play Balloon Pop Sound
+                        soundBalloonPop.currentTime = 0;
+                        soundBalloonPop.play().catch(e => console.log(e));
+
                         triggerWin();
                     }
                 }
@@ -800,19 +823,28 @@
         }
     </script>
     
-    <!-- Audio Files -->
+    <!-- Audio Files (Music) -->
     <audio id="journey-music" loop preload="auto">
         <source src="Happy-Birthday.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- First Song (Does NOT loop, triggers the second song when it ends) -->
     <audio id="our-journey-music" preload="auto">
         <source src="Metro-Love-Proposal-BGM.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Second Song (Loops endlessly after the first one finishes) -->
     <audio id="our-journey-music-2" loop preload="auto">
         <source src="Dude-Metro-Proposal-BGM.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Audio Files (Game Sound Effects) -->
+    <audio id="sound-bowpull" preload="auto">
+        <source src="bowpull.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sound-bowrealesed" preload="auto">
+        <source src="bowrealesed.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sound-balloonpop" preload="auto">
+        <source src="balloonpop.mp3" type="audio/mpeg">
     </audio>
 
 </body>
