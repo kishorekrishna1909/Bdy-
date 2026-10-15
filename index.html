@@ -210,11 +210,10 @@
             <h2 class="text-3xl font-handwriting font-bold text-brand-dark mb-4">You captured my heart!</h2>
             
             <!-- The Video Container -->
-            <video id="wish-video" controls class="w-full rounded-xl mb-6 shadow-md border-2 border-brand-light">
-                <source src="Wish.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-
+          <video id="wish-video" controls playsinline preload="metadata" class="w-full aspect-video bg-black/10 rounded-xl mb-6 shadow-md border-2 border-brand-light object-cover">
+    <source src="Wish.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
             <button onclick="closePopupAndProceed()" class="bg-brand-dark text-white font-bold py-3 px-8 rounded-full hover:bg-brand-medium transition-colors w-full shadow-lg">
                 Continue to Our Memories 💖
             </button>
