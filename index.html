@@ -187,9 +187,9 @@
                 </div>
             </div>
         </div>
-        <!-- <button onclick="bypassTimer()" class="absolute bottom-6 opacity-30 hover:opacity-100 text-sm text-brand-dark transition-opacity underline decoration-dotted z-50">
+        <button onclick="bypassTimer()" class="absolute bottom-6 opacity-30 hover:opacity-100 text-sm text-brand-dark transition-opacity underline decoration-dotted z-50">
             [Secret: Click here to skip timer]
-        </button> -->
+        </button>
     </div>
 
     <!-- Screen 3: Minigame -->
@@ -203,21 +203,20 @@
         </div>
     </div>
 
-    <!-- Screen 4: Video Popup -->
   <!-- Screen 4: Video Popup -->
-    <div id="custom-popup" class="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex-col items-center justify-center px-4">
-        <!-- Increased max-w-md to max-w-xl to make the card wider -->
-        <div class="bg-white p-6 md:p-8 rounded-3xl shadow-2xl border-4 border-brand-medium text-center animate-pop-in max-w-xl w-full">
-            <div class="text-5xl mb-2">🎉🐼</div>
+    <div id="custom-popup" class="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex-col items-center justify-center px-4 py-6">
+        <!-- Added max-h-[95vh] and overflow-y-auto so the big video doesn't hide the continue button -->
+        <div class="bg-white p-4 md:p-8 rounded-3xl shadow-2xl border-4 border-brand-medium text-center animate-pop-in max-w-md w-full max-h-[95vh] overflow-y-auto flex flex-col">
+            <div class="text-4xl mb-2">🎉🐼</div>
             <h2 class="text-3xl font-handwriting font-bold text-brand-dark mb-4">You captured my heart!</h2>
             
-            <!-- Increased max-h-[50vh] to max-h-[75vh] to make the video much bigger -->
-            <video id="wish-video" controls playsinline preload="metadata" class="mx-auto h-auto max-h-[75vh] w-auto max-w-full rounded-xl mb-6 shadow-md border-2 border-brand-light">
-                <source src="wish.mp4" type="video/mp4">
+            <!-- aspect-[3/4] and object-cover forces the video to be a large, tall vertical frame filling the card -->
+            <video id="wish-video" controls playsinline preload="metadata" class="w-full aspect-[3/4] object-cover rounded-xl mb-6 shadow-md border-2 border-brand-light bg-black/5">
+                <source src="Wish.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
 
-            <button onclick="closePopupAndProceed()" class="bg-brand-dark text-white font-bold py-3 px-8 rounded-full hover:bg-brand-medium transition-colors w-full shadow-lg">
+            <button onclick="closePopupAndProceed()" class="bg-brand-dark text-white font-bold py-3 px-8 rounded-full hover:bg-brand-medium transition-colors w-full shadow-lg mt-auto shrink-0">
                 Continue to Our Memories 💖
             </button>
         </div>
@@ -358,7 +357,7 @@
         const soundBalloonPop = document.getElementById('sound-balloonpop');
 
         let countdownInterval;
-        const targetDate = new Date("October 15, 2026 12:19:00").getTime();
+        const targetDate = new Date("October 20, 2026 00:00:00").getTime();
 
         function switchScreen(hideScreen, showScreen, displayType = 'flex') {
             hideScreen.style.opacity = '0';
