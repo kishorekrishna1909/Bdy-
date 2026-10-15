@@ -118,6 +118,13 @@
             color: var(--brand-cream);
             transform: scale(1.1);
         }
+        
+        .photo-frame {
+            background: white;
+            padding: 12px 12px 40px 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border: 1px solid #e5e7eb;
+        }
 
         #custom-popup {
             display: none;
@@ -132,11 +139,12 @@
 </head>
 <body class="heart-bg antialiased min-h-screen relative w-full h-full flex flex-col items-center">
 
+    <!-- Screen 1: Auth Screen -->
     <div id="auth-screen" class="screen active fixed inset-0 z-50 flex-col items-center justify-center bg-brand-cream bg-opacity-95 backdrop-blur-sm px-4">
         <div class="text-center animate-pop-in p-6 md:p-8 rounded-3xl shadow-2xl bg-white/90 border-4 border-brand-light max-w-lg w-full">
             <div class="text-6xl mb-2 animate-float">🔒🐼</div>
-            <h2 class="text-2xl font-bold text-brand-dark mb-2">Secret Entrance</h2>
-            <p class="text-brand-medium text-sm mb-6">Enter our special dates to unlock...</p>
+            <h2 class="text-2xl font-bold text-brand-dark mb-2">The Key to My Heart</h2>
+            <p class="text-brand-medium text-sm mb-6">Enter the beautiful dates that changed my life forever...</p>
             
             <div class="grid grid-cols-2 gap-3 mb-4">
                 <input type="text" id="p1" maxlength="2" placeholder="Your Bday Date" class="auth-input w-full px-2 py-3 rounded-xl border-2 border-brand-light focus:border-brand-medium focus:outline-none text-center text-sm md:text-base tracking-widest text-brand-dark shadow-inner">
@@ -145,19 +153,20 @@
                 <input type="text" id="p4" maxlength="2" placeholder="My Bday Month" class="auth-input w-full px-2 py-3 rounded-xl border-2 border-brand-light focus:border-brand-medium focus:outline-none text-center text-sm md:text-base tracking-widest text-brand-dark shadow-inner">
             </div>
             
-            <p id="error-msg" class="text-red-500 text-sm mb-4 h-5 opacity-0 transition-opacity font-medium">Incorrect dates. Try again! 🥺</p>
+            <p id="error-msg" class="text-red-500 text-sm mb-4 h-5 opacity-0 transition-opacity font-medium">Not quite right, my love. Try again! 🥺</p>
             
             <button onclick="checkPassword()" class="w-full bg-brand-dark text-brand-cream font-bold py-3 px-6 rounded-xl hover:bg-brand-medium transition-colors shadow-lg transform active:scale-95">
-                Unlock 🗝️
+                Unlock Our World 🗝️
             </button>
         </div>
     </div>
 
+    <!-- Screen 2: Countdown Screen -->
     <div id="countdown-screen" class="screen fixed inset-0 z-40 flex-col items-center justify-center bg-brand-cream px-4">
         <div class="text-center p-8 rounded-3xl shadow-xl bg-white/80 border-4 border-brand-light max-w-lg w-full">
             <div class="text-6xl mb-4 animate-float">⏳🐻</div>
-            <h1 class="text-3xl md:text-4xl font-bold text-brand-dark mb-2">Waiting for You...</h1>
-            <p class="text-brand-medium text-lg mb-8 font-medium">Until October 20, 2026</p>
+            <h1 class="text-3xl md:text-4xl font-bold text-brand-dark mb-2">Counting Every Heartbeat...</h1>
+            <p class="text-brand-medium text-lg mb-8 font-medium">Until your special day begins, my love.</p>
             
             <div class="grid grid-cols-4 gap-2 md:gap-4 text-center">
                 <div class="bg-brand-dark text-brand-cream rounded-xl p-2 md:p-4 shadow-lg">
@@ -183,26 +192,36 @@
         </button>
     </div>
 
+    <!-- Screen 3: Minigame -->
     <div id="game-screen" class="screen fixed inset-0 z-30 bg-brand-cream flex-col items-center justify-center">
         <div class="absolute top-10 text-center z-10 pointer-events-none w-full px-4">
-            <h2 class="text-3xl font-bold text-brand-dark animate-pulse bg-white/70 inline-block px-4 py-2 rounded-full">Shoot the heart to unlock! 🏹💖</h2>
-            <p class="text-brand-medium mt-2 font-handwriting text-2xl bg-white/70 inline-block px-4 py-1 rounded-full">Pull back anywhere and release</p>
+            <h2 class="text-3xl font-bold text-brand-dark animate-pulse bg-white/70 inline-block px-4 py-2 rounded-full">Aim for my heart... 🏹💖</h2>
+            <p class="text-brand-medium mt-2 font-handwriting text-2xl bg-white/70 inline-block px-4 py-1 rounded-full">Pull the bow back and let our love fly</p>
         </div>
         <div class="relative w-full h-full max-w-5xl mx-auto overflow-hidden shadow-inner border-x-4 border-brand-light bg-white/40">
             <canvas id="gameCanvas"></canvas>
         </div>
     </div>
 
+    <!-- Screen 4: Video Popup -->
     <div id="custom-popup" class="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex-col items-center justify-center px-4">
-        <div class="bg-white p-8 rounded-3xl shadow-2xl border-4 border-brand-medium text-center animate-pop-in max-w-sm w-full">
+        <div class="bg-white p-8 rounded-3xl shadow-2xl border-4 border-brand-medium text-center animate-pop-in max-w-md w-full">
             <div class="text-5xl mb-4">🎉🐼</div>
-            <h2 class="text-4xl font-handwriting font-bold text-brand-dark mb-6">Happy Birthday My Gurl!</h2>
+            <h2 class="text-3xl font-handwriting font-bold text-brand-dark mb-4">You captured my heart!</h2>
+            
+            <!-- The Video Container -->
+            <video id="wish-video" controls class="w-full rounded-xl mb-6 shadow-md border-2 border-brand-light">
+                <source src="wish.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
             <button onclick="closePopupAndProceed()" class="bg-brand-dark text-white font-bold py-3 px-8 rounded-full hover:bg-brand-medium transition-colors w-full shadow-lg">
-                Continue 💖
+                Continue to Our Memories 💖
             </button>
         </div>
     </div>
 
+    <!-- Screen 5: Main Menu -->
     <div id="main-menu" class="screen min-h-screen py-12 px-4 sm:px-6 flex-col items-center justify-center relative w-full max-w-5xl mx-auto">
         <div class="flex flex-col md:flex-row gap-6 w-full justify-center animate-fade-in">
             <button onclick="showSection('journey-section')" class="flex-1 bg-white border-4 border-brand-light p-8 rounded-[2rem] shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all group flex flex-col items-center justify-center min-h-[250px]">
@@ -218,19 +237,19 @@
     </div>
 
     <!-- YOUR JOURNEY GALLERY -->
-    <div id="journey-section" class="screen min-h-screen py-10 px-4 w-full flex-col items-center relative pb-32">
-        
+    <div id="journey-section" class="screen min-h-screen py-10 px-4 w-full flex-col items-center relative pb-12">
         <div class="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center">
-            <button onclick="backToMenu()" class="self-start mb-8 bg-white/80 backdrop-blur border-2 border-brand-light px-4 py-2 rounded-full text-brand-dark font-bold shadow hover:bg-brand-light hover:text-white transition-colors z-20">
+            
+            <!-- TOP BACK BUTTON -->
+            <button onclick="backToMenu()" class="self-start mb-8 bg-white/80 backdrop-blur border-2 border-brand-light px-6 py-2 rounded-full text-brand-dark font-bold shadow-md hover:bg-brand-light hover:text-white transition-colors z-20">
                 &larr; Back
             </button>
             
             <div class="bg-[#fcf8ed] p-8 md:p-10 rounded-3xl shadow-xl relative border-2 border-brand-light w-full mb-12 animate-fade-in z-10">
                 <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-white/80 rotate-2 shadow-sm border border-gray-100"></div>
-                <h2 class="font-handwriting text-4xl text-brand-dark mb-4 text-center">My Dearest Girl, 🐼</h2>
+                <h2 class="font-handwriting text-4xl text-brand-dark mb-4 text-center">To the Queen of My Heart, 🐼</h2>
                 <p class="font-sans text-lg text-brand-dark leading-relaxed text-center font-medium">
-                    I've been waiting for this exact moment to celebrate you. From the cute little expressions to the beautiful woman you are, every version of you holds my heart. 
-                    This album is a little journey through all the faces I love so much. Wishing you the happiest birthday, my beautiful panda! 🤎✨
+                    Looking at these pictures reminds me of how incredibly lucky I am. Every smile, every silly face, and every beautiful look of yours just makes me fall deeper in love. You are the magic in my everyday life. Happy Birthday, my precious girl! 🤎✨
                 </p>
             </div>
 
@@ -249,22 +268,28 @@
                 
                 <button onclick="nextJourneyPhoto()" class="nav-btn absolute -right-4 md:-right-12 z-30">&rarr;</button>
             </div>
+            
+            <!-- BOTTOM BACK BUTTON -->
+            <button onclick="backToMenu()" class="mt-16 mb-8 bg-white/90 backdrop-blur border-2 border-brand-dark px-8 py-3 rounded-full text-brand-dark font-bold shadow-lg hover:bg-brand-dark hover:text-white transition-colors z-20">
+                &larr; Back to Main Menu
+            </button>
         </div>
     </div>
 
     <!-- OUR JOURNEY GALLERY -->
-    <div id="our-journey-section" class="screen min-h-screen py-10 px-4 w-full flex-col items-center relative pb-32">
-        
+    <div id="our-journey-section" class="screen min-h-screen py-10 px-4 w-full flex-col items-center relative pb-12">
         <div class="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center">
-            <button onclick="backToMenu()" class="self-start mb-8 bg-white/80 backdrop-blur border-2 border-brand-light px-4 py-2 rounded-full text-brand-dark font-bold shadow hover:bg-brand-light hover:text-white transition-colors z-20">
+            
+            <!-- TOP BACK BUTTON -->
+            <button onclick="backToMenu()" class="self-start mb-8 bg-white/80 backdrop-blur border-2 border-brand-light px-6 py-2 rounded-full text-brand-dark font-bold shadow-md hover:bg-brand-light hover:text-white transition-colors z-20">
                 &larr; Back
             </button>
             
             <div class="bg-[#fcf8ed] p-8 md:p-10 rounded-3xl shadow-xl relative border-2 border-brand-medium w-full mb-12 animate-fade-in z-10">
                 <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-white/80 -rotate-2 shadow-sm border border-gray-100"></div>
-                <h2 class="font-handwriting text-4xl text-brand-dark mb-4 text-center">Our Beautiful Journey 👩‍❤️‍👨</h2>
+                <h2 class="font-handwriting text-4xl text-brand-dark mb-4 text-center">Our Beautiful Forever 👩‍❤️‍👨</h2>
                 <p class="font-sans text-lg text-brand-dark leading-relaxed text-center font-medium">
-                    Every moment spent with you is a memory I treasure. Here is a look back at us, and to many more beautiful memories yet to come... 🤎
+                    Every single moment by your side is a treasure I hold close to my heart. From our first laugh to our deepest promises, you've made my life a beautiful dream. Here's to us, to our memories, and to a lifetime of loving you... 🤎
                 </p>
             </div>
 
@@ -283,6 +308,11 @@
                 
                 <button onclick="nextOurJourneyPhoto()" class="nav-btn absolute -right-4 md:-right-12 z-30">&rarr;</button>
             </div>
+            
+            <!-- BOTTOM BACK BUTTON -->
+            <button onclick="backToMenu()" class="mt-16 mb-8 bg-white/90 backdrop-blur border-2 border-brand-dark px-8 py-3 rounded-full text-brand-dark font-bold shadow-lg hover:bg-brand-dark hover:text-white transition-colors z-20">
+                &larr; Back to Main Menu
+            </button>
         </div>
     </div>
 
@@ -651,6 +681,10 @@
         }
 
         function closePopupAndProceed() {
+            // Pause the video if it's playing when she clicks continue
+            const wishVideo = document.getElementById('wish-video');
+            if (wishVideo) wishVideo.pause();
+
             customPopup.classList.remove('active');
             setTimeout(() => {
                 switchScreen(screens.game, screens.mainMenu);
@@ -680,6 +714,7 @@
             }
         }
 
+        /* --- Your Journey Gallery Data --- */
         const journeyData = [
             { src: "1.jpg" },
             { src: "2.jpg" },
@@ -742,6 +777,7 @@
             updateJourneyView();
         }
 
+        /* --- Our Journey Gallery Data --- */
         const ourJourneyData = [
             { src: "Us1.jpg"},
             { src: "Us2.jpg"},
