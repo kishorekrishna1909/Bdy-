@@ -164,7 +164,7 @@
     <!-- Screen 2: Countdown Screen -->
     <div id="countdown-screen" class="screen fixed inset-0 z-40 flex-col items-center justify-center bg-brand-cream px-4">
         <div class="text-center p-8 rounded-3xl shadow-xl bg-white/80 border-4 border-brand-light max-w-lg w-full">
-            <div class="text-6xl mb-4 animate-float">⏳💖</div>
+            <div class="text-6xl mb-4 animate-float">⏳🤎</div>
             <h1 class="text-3xl md:text-4xl font-bold text-brand-dark mb-2">Counting Every Heartbeat...</h1>
             <p class="text-brand-medium text-lg mb-8 font-medium">Until your special day begins, my love.</p>
             
@@ -187,9 +187,9 @@
                 </div>
             </div>
         </div>
-        <button onclick="bypassTimer()" class="absolute bottom-6 opacity-30 hover:opacity-100 text-sm text-brand-dark transition-opacity underline decoration-dotted z-50">
+        <!-- <button onclick="bypassTimer()" class="absolute bottom-6 opacity-30 hover:opacity-100 text-sm text-brand-dark transition-opacity underline decoration-dotted z-50">
             [Secret: Click here to skip timer]
-        </button>
+        </button> -->
     </div>
 
     <!-- Screen 3: Minigame -->
@@ -356,7 +356,7 @@
         const soundBalloonPop = document.getElementById('sound-balloonpop');
 
         let countdownInterval;
-        const targetDate = new Date("October 16, 2026 14:08:00").getTime();
+        const targetDate = new Date("October 20, 2026 00:00:00").getTime();
 
         function switchScreen(hideScreen, showScreen, displayType = 'flex') {
             hideScreen.style.opacity = '0';
